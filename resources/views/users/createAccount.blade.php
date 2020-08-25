@@ -52,7 +52,7 @@
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/users/register">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="/users">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
@@ -62,13 +62,13 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="users/logout"
+                                    <a class="dropdown-item" href="/logout"
                                        onclick="event.preventDefault();
                                                      document.getEledmentById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
-                                    <form id="logout-form" action="users/logout" method="POST" style="display: none;">
+                                    <form id="logout-form" action="/logout" method="POST" style="display: none;">
                                         @csrf
                                         @method('GET')
                                     </form>
