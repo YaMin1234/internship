@@ -122,7 +122,7 @@
                    @endif
             </div>
             <h1>Update Menu</h1>
-            <form action="{{ route('menus.update',$menu->id)}}" method="POST">
+            <form action="{{ route('menus.update',$menu->id)}}" method="POST" enctype="multipart/form-data">
                
                 @csrf
                 @method("PATCH")
@@ -147,9 +147,15 @@
                     <label>Price</label>
                     <input type="text" name="price" value="{{$menu->price}}">
                 </div>
+                <div class="container from-group">
+                    <img  src="{{ URL::asset('/photos/'. $menu->photos) }}" alt="Card image cap" style="width: 100px;height:60px;">
+                </div>
+                <div class="container form-group">
+                    <input type="file" name="photos">
+                </div>
                
                 <div class="container form-group">
-                    <button class="btn btn-info">Upddate Menu</button>
+                    <button class="btn btn-info">Update Menu</button>
                 </div>
         
         </main>

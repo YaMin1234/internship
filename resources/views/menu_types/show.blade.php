@@ -160,13 +160,13 @@
             @forelse ($menu_types as $menu_type)
                <b>{{$menu_type->name}}</b>
                  <li>
-                    <div class="small mt-2"> 
+                    <div class="row"> 
                           @foreach($menu_type->menu as $menu)
-                        <div class="container">
-                            {{-- <img  src="{{ URL::asset('/photos/'. $menu->photos) }}" alt="Card image cap" > --}}
+                        <div class="col-sm-6">
+                           
                          
                           <b>{{$menu->name}}</b>
-                          
+                          <img  src="{{ URL::asset('/photos/'. $menu->photos) }}" alt="Card image cap" style="height: 50px;display:block;"> 
                           [<a href="{{route('menus.edit', $menu->id)}}" style="text-decoration: none">Edit</a>]
                           [<a href="{{route('menus.delete', $menu->id) }}" style="text-decoration: none" class="text text-danger" >Delete</a>] 
                           <p>1pcs</p>

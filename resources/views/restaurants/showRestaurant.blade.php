@@ -61,11 +61,21 @@
                         </li>
                         <li class="nav-item">
                             @auth
-                            <a class="nav-link text-success"
-                            href="/restaurants"> Restaurants </a>
-                            @endauth 
-                            </li>
-                            <li class="nav-item">
+                            <div class="dropdown">
+                                <button class="btn btn-succress dropdown-toggle" type="button" data-toggle="dropdown">Restaurant
+                                <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                  <li><a class="nav-link text-success"
+                                    href="{{route('restaurants.create')}}">Create Restaurant </a></li>
+                                  <li><a class="nav-link text-success"
+                                    href="{{route('resaturants.trashed')}}">Restore Restaurants</a></li>
+                                  <li><a class="nav-link text-success"
+                                    href="{{route('restaurants')}}">Restaurants</a></li>
+                                </ul>
+                              </div>
+                            @endauth
+                        </li>
+                        <li class="nav-item">
                                 @auth
                                 <a class="nav-link text-success"
                                 href="/menu_types">Menu Types</a>
@@ -74,10 +84,15 @@
                         <li class="nav-item">
                             @auth
                             <a class="nav-link text-success"
-                            href="/orders">Manage Orders</a>
+                            href="/manage-order">Manage Orders</a>
                             @endauth
                        </li>
-
+                       <li class="nav-item">
+                        @auth
+                        <a class="nav-link text-success"
+                        href="/all-message">Messages</a>
+                        @endauth
+                   </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -161,13 +176,13 @@
             @forelse ($menu_types as $menu_type)
                <b>{{$menu_type->name}}</b>
                  <li>
-                    <div class="small mt-2"> 
+                    <div class="row"> 
                           @foreach($menu_type->menu as $menu)
-                        <div class="container">
-                            {{-- <img  src="{{ URL::asset('/photos/'. $menu->photos) }}" alt="Card image cap" > --}}
+                        <div class="col-sm-6">
+                           
+                          <h6>{{$menu->name}}</h6>
+                          <img  src="{{ URL::asset('/photos/'. $menu->photos) }}" alt="Card image cap" style="height:50px;display:block;">
                          
-                          <b>{{$menu->name}}</b>
-                          
                           [<a href="{{route('menus.edit', $menu->id)}}" style="text-decoration: none">Edit</a>]
                           [<a href="{{route('menus.delete', $menu->id) }}" style="text-decoration: none" class="text text-danger">Delete</a>] 
                           <p>1pcs</p>

@@ -13,6 +13,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
  
 </head>
 <style>
@@ -95,7 +96,7 @@
                     @endif
                     <div class="row">
                         <div class="col-lg-12 col-sm-12 col-12 text-center checkout">
-                           <a href="{{route('foodDelivery.cart')}}" class="btn btn-primary btn-block">View all</a>
+                            <a href="{{ route('foodDelivery.cart') }}" class="btn btn-primary btn-block">View all</a>
                         </div>
                     </div>
                 </div>
@@ -130,8 +131,14 @@
             </div>
           </div>
           <div>
-            <input type="hidden" name="restaurant_id" value="{{$restaurant->id}}">
+            <form action="{{route('foodDelivery.show',$restaurant->id)}}" method="POST">
+                @csrf
+                @method('GET')
+                <input type="hidden" name="restaurant_id" value="{{$restaurant->id}}">
                 <b>Main Menu</b>
+                <button class="btn btn-primary" style="float: right"><i class="fa fa-backward" aria-hidden="true"></i></button>
+            </form>
+           
           </div>
           @foreach($menu_types as $menu_type)
           <a href="{{route('foodDelivery.showMenu', $menu_type->id)}}" style="text-decoration: none" class="menuType" >{{$menu_type->name}}</a>
@@ -141,19 +148,19 @@
           {{-- <form action="" method="post"> --}}
           <ul style="list-style: none">
             @forelse ($menu_types as $menu_type)
-               <b>{{$menu_type->name}}</b>
+               <h6>{{$menu_type->name}}</h6>
                
 
                  <li>
                     <div class="row"> 
                         @foreach($menu_type->menu as $menu)
                        
-                          <div class="col-md-6 col-md-offset-4">
+                          <div class="col-sm-6">
                             <div class="shadow" >
-                                <a href="{{ route('foodDelivery.addToCart',$menu->id) }}" style="font-size: 15px;padding-left:20px;font-weight:bold;">{{$menu->name}}</a> 
-                                    {{-- <b style="font-size: 13px;padding-left:20px;">{{$menu->name}}</b> --}}
-                                    <p style="font-size: 11px;padding-left:20px;">1pcs</p>
-                                    <p style="font-size: 12px;padding-left:20px;">MMK {{$menu->price}}</p>
+                               
+                              <a href="{{ route('foodDelivery.addToCart',$menu->id) }}" style="font-size: 13px;padding-left:20px;text-decoration:none;font-weight:bold;">{{$menu->name}}</a> 
+                                <p style="font-size: 11px;padding-left:20px;">1pcs</p>
+                                <p style="font-size: 12px;padding-left:20px;">MMK {{$menu->price}}</p>
                                
                             <div class="container1">
                                 <img  src="{{ URL::asset('/photos/'. $menu->photos) }}" alt="Card image cap" > 

@@ -13,17 +13,14 @@
     <link href="{{asset('frontend/css/animate.css')}}" rel="stylesheet">
     <link href="{{asset('frontend/css/main.css')}}" rel="stylesheet">
     <link href="{{asset('frontend/css/responsive.css')}}" rel="stylesheet">
-    <!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
-    <script src="js/respond.min.js"></script>
-    <![endif]-->       
+    
     <link rel="shortcut icon" href="images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{URL::to('frontend/images/ico/apple-touch-icon-144-precomposed.png')}}">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{URL::to('frontend/images/ico/apple-touch-icon-114-precomposed.png')}}">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{URL::to('frontend/images/ico/apple-touch-icon-72-precomposed.png')}}">
     <link rel="apple-touch-icon-precomposed" href="{{URL::to('frontend/images/ico/apple-touch-icon-57-precomposed.png')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head><!--/head-->
+</head>
 
 <style>
 
@@ -94,15 +91,14 @@
 
 
 <body>
-    <header id="header"><!--header-->
-        <div class="header_top"><!--header_top-->
+    <header id="header">
+        <div class="header_top">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="contactinfo">
                             <ul class="nav nav-pills">
-                                {{-- <li><a href="#"><i class="fa fa-phone"></i> +8801726-959864</a></li>
-                                <li><a href="#"><i class="fa fa-envelope"></i> princemahamud687@gmail.com</a></li> --}}
+                               
                             </ul>
                         </div>
                     </div>
@@ -119,9 +115,9 @@
                     </div>
                 </div>
             </div>
-        </div><!--/header_top-->
+        </div>
         
-        <div class="header-middle"><!--header-middle-->
+        <div class="header-middle">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-4">
@@ -133,8 +129,7 @@
                     <div class="col-sm-8">
                         <div class="shop-menu pull-right">
                             <ul class="nav navbar-nav">
-                                <!-- <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
-                                <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li> -->
+                                
 
                         <?php $customer_id=session()->get('customer_id');
                               $shipping_id=session()->get('shipping_id');
@@ -163,9 +158,9 @@
                     </div>
                 </div>
             </div>
-        </div><!--/header-middle-->
+        </div>
     
-        <div class="header-bottom"><!--header-bottom-->
+        <div class="header-bottom">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-9">
@@ -182,8 +177,7 @@
                                 <li><a href="{{route('foodDelivery.index')}}" class="active">Home</a></li>
                                 <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <!-- <li><a href="shop.html">Products</a></li>
-                                        <li><a href="product-details.html">Product Details</a></li>  -->
+                                      
                                        <?php $customer_id=Session::get('customer_id'); ?>
                      <?php if($customer_id != NULL){?>
                             <li><a href="{{route('checkout')}}"> Checkout</a></li>
@@ -194,13 +188,7 @@
                                         
                                     </ul>
                                 </li> 
-                                <!-- <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="blog.html">Blog List</a></li>
-                                        <li><a href="blog-single.html">Blog Single</a></li>
-                                    </ul>
-                                </li>  -->
-                                <!-- <li><a href="404.html">404</a></li> -->
+                              
                                 <li><a href="{{route('contact')}}">Contact</a></li>
                             </ul>
                         </div>
@@ -208,17 +196,17 @@
                     
                 </div>
             </div>
-        </div><!--/header-bottom-->
-    </header><!--/header-->
+        </div>
+    </header>
     
 
- <!--features_items-->
+
 
 	<section id="cart_items">
 		<div class="container">
 			<div class="register-req">
 				<p>Please fillup this form............</p>
-			</div><!--/register-req-->
+			</div>
 
 			<div class="shopper-informations">
 				<div class="row">
@@ -227,7 +215,8 @@
 							<p>Shipping Details</p>
 							<div class="form-one">
 								<form action="{{url('/save-shipping-details')}}" method="post">
-									{{csrf_field()}}
+                                    {{csrf_field()}}
+                                <input type="hidden" name="button" value={{$button}}>
 								<input type="text" name="shipping_email"  placeholder="Email*" required="">
 								<input type="text" name="shipping_name"  placeholder="Name *" required="">
 								<input type="text" name="shipping_address"  placeholder="Address *">
@@ -241,7 +230,7 @@
 				</div>
 			</div>
 		</div>
-	</section> <!--/#cart_items-->
+	</section> 
 
 </div>
 </div>

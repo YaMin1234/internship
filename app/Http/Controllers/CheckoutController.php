@@ -6,21 +6,27 @@ use Illuminate\Http\Request;
 use DB;
 use App\Http\Requests;
 use App\Order;
+use App\Shipping;
 use Illuminate\Contracts\Session\Session as SessionSession;
+use Illuminate\Support\Facades\DB as FacadesDB;
+use Illuminate\Support\Facades\Input;
 use Session;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session as FacadesSession;
 use Symfony\Component\HttpFoundation\Session\Session as HttpFoundationSessionSession;
+use IlluminateSupportStr;
 
 class CheckoutController extends Controller
 {
     public function login_check()
     {
-    	return view('pages.login');
+     $button = Input::get('submitbutton');
+    	return view('pages.login',compact('button'));
     }
 
     public function customer_registration(Request $request)
     {
+      $button = $request->button;
       $data=array();
       $data['customer_name']=$request->customer_name;
       $data['customer_email']=$request->customer_email;
@@ -32,7 +38,7 @@ class CheckoutController extends Controller
 
                session()->put('customer_id',$customer_id);
                session()->put('customer_name',$request->customer_name);
-               return Redirect('/checkout');      
+               return view('pages.checkout',compact('button'));      
 
     }
 
@@ -46,23 +52,25 @@ class CheckoutController extends Controller
 
     public function save_shipping_details(Request $request)
     {
-
+      $button = $request->button;
       $data=array();
       $data['shipping_email']=$request->shipping_email;
       $data['shipping_name']=$request->shipping_name;
       $data['shipping_address']=$request->shipping_address;
       $data['shipping_mobile_number']=$request->shipping_mobile_number;
       $data['shipping_city']=$request->shipping_city;
+      $data['deliveryOrPickup']=$request->button;
 
         $shipping_id=DB::table('shippings')
                      ->insertGetId($data);
            session()->put('shipping_id',$shipping_id);
-           return Redirect::to('/payment'); 
+           return view('pages.payment');
 
     }
 
     public function customer_login(Request $request)
     {
+      $button = $request->button;
       $customer_email=$request->customer_email;
       $password=md5($request->password);
       $result=DB::table('customers')
@@ -73,10 +81,10 @@ class CheckoutController extends Controller
              if ($result) {
                
                session()->put('customer_id',$result->customer_id);
-               return Redirect::to('/checkout');
+               return view('pages.checkout',compact('button'));   
              }else{
                 
-                return Redirect::to('/login_check');
+                return Redirect::to('/login-check');
              }
     }
   
@@ -87,6 +95,7 @@ class CheckoutController extends Controller
     
     public function order_place(Request $request)
     {
+      $button = $request->button;
       $payment_gateway=$request->payment_method;
 
       // $total=Cart::total();
@@ -131,15 +140,14 @@ class CheckoutController extends Controller
          
         
      }elseif ($payment_gateway=='card') {
-   
-      echo "card";
+      session()->forget('cart');
+      return view('pages.handcash');  
       
      }  
      else{
       echo "not selected";
      }
-
-
+   
     }
 
     public function manage_order()
@@ -180,27 +188,44 @@ class CheckoutController extends Controller
               return Redirect::to('manage-order');
     }
 
-    public function delivered_order($order_id)
-    {
-          DB::table('orders')
-              ->where('order_id',$order_id)
-              ->update(['order_status' => 2]);
-        session()->put('message', 'Food on the way !! ');
-              return Redirect::to('manage-order');
-    }
-    public function pickup_order($order_id)
-    {
-          DB::table('orders')
-              ->where('order_id',$order_id)
-              ->update(['order_status' => 3]);
-        session()->put('message', 'Food Pick up !! ');
-              return Redirect::to('manage-order');
+    public function update_order($order_id)
+    { 
+        $shippingIds = DB::table('orders')->select('shipping_id')
+                                             ->where('order_id',$order_id)
+                                             ->first();
+        
+        foreach($shippingIds as $shippingId)
+        {
+         $shipping = DB::table('shippings')->where('shipping_id',$shippingId)
+                                  ->first();
+       
+      
+         if ($shipping->deliveryOrPickup == "Delivery")
+          {
+           
+            DB::table('orders')
+                ->where('order_id',$order_id)
+                ->update(['order_status' => 2]);
+            session()->put('message', 'Food on the way !! ');
+           
+          }
+          elseif($shipping->deliveryOrPickup == "Pickup")
+          {
+            DB::table('orders')
+                ->where('order_id',$order_id)
+                ->update(['order_status' => 2]);
+            session()->put('message', 'Food Pick up !! ');
+         
+          }
+         }
+         return Redirect::to('manage-order');
+         
     }
     public function finish_order($order_id)
     {
           DB::table('orders')
               ->where('order_id',$order_id)
-              ->update(['order_status' => 4]);
+              ->update(['order_status' => 3]);
         session()->put('message', 'Order Complete !! ');
               return Redirect::to('manage-order');
     }

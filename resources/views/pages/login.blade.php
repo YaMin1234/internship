@@ -225,7 +225,8 @@ form{
 					<div class="login-form"><!--login form-->
 						<h2>Login to your account</h2>
 						<form action="{{route('customer_login')}}" method="post">
-						    @csrf
+                            @csrf
+                            <input type="hidden" value={{$button}} name="button">
 							<input type="email" required="" placeholder="Email" name="customer_email" />
 							<input type="password" placeholder="Passwords" name="password" />
 							<button type="submit" class="btn btn-default">Login</button>
@@ -239,7 +240,8 @@ form{
 					<div class="signup-form"><!--sign up form-->
 						<h2>New User Signup!</h2>
 						<form action="{{route('customer_registration')}}" method="post">
-							@csrf
+                            @csrf
+                            <input type="hidden" value={{$button}} name="button">
 							<input type="text" placeholder="Full Name" name="customer_name" required="" />
 							<input type="email" placeholder="Email Address" name="customer_email" required=""/>
 							<input type="password" placeholder="Password" name="password" required=""/>

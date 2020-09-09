@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <title>food delivery</title>
     <style>
         html,
@@ -56,8 +57,13 @@ h5 {
                 <h1 class="h1-reponsive white-text text-uppercase font-weight-bold mb-0 pt-md-5 pt-5 wow fadeInDown" data-wow-delay="0.3s"><strong>Food delivery</strong></h1>
                 <hr class="hr-light my-4 wow fadeInDown" data-wow-delay="0.4s">
                 <h5 class="text-uppercase mb-4 white-text wow fadeInDown"><strong>Food Delivery from the restaurant.Order now!</strong></h5>
-                <a href="{{route('foodDelivery.index')}}"  class="btn btn-primary">Delivery</a>
-                <a  href="{{route('foodDelivery.index')}}" class="btn btn-primary">Pick up</a>
+               
+              <form action="{{route('checkout')}}" method="GET">
+                <input type="submit" class="btn btn-success" value="Delivery" name="submitbutton">
+                <input type="submit" class="btn btn-success" value="Pick Up" name="submitbutton">
+                {{-- <a href="{{route('foodDelivery.index')}}"  class="btn btn-primary">Delivery</a>
+                <a  href="{{route('foodDelivery.index')}}" class="btn btn-primary">Pick up</a> --}}
+              </form>
               </div>
              
             </div>

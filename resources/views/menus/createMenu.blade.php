@@ -21,13 +21,14 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <style>
-    img.avatar1 {
+  img.avatar1 {
             width: 3%;
             border-radius: 50%;
                }
-     nav{
-         height: 15px;
-     }
+    #nav{
+        height:15px;
+    }
+
 </style>
 <body>
     <div id="app">

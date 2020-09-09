@@ -16,6 +16,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -57,10 +58,20 @@
                         </li>
                         <li class="nav-item">
                             @auth
-                            <a class="nav-link text-success"
-                        href="{{route('restaurants.create')}}">Create Restaurant </a>
+                            <div class="dropdown">
+                                <button class="btn btn-succress dropdown-toggle" type="button" data-toggle="dropdown">Restaurant
+                                <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                  <li><a class="nav-link text-success"
+                                    href="{{route('restaurants.create')}}">Create Restaurant </a></li>
+                                  <li><a class="nav-link text-success"
+                                    href="{{route('resaturants.trashed')}}">Restore Restaurants</a></li>
+                                  <li><a class="nav-link text-success"
+                                    href="{{route('restaurants')}}">Restaurants</a></li>
+                                </ul>
+                              </div>
                             @endauth
-                            </li>
+                        </li>
                         <li class="nav-item">
                                 @auth
                                 <a class="nav-link text-success"
@@ -122,36 +133,39 @@
              <h3>All Restaurants</h3>
             
                 <div class="row">
-                    <div class="card-group">
+                    <div class="card-deck">
                      @forelse ($restaurants as $restaurant)
                      <div class="col-sm-3">
-                            <div class="card">
+                            <div class="card" style="width: 18rem;">
                                 <img class="card-img-top" src="{{ URL::asset('/photos/'. $restaurant->photos) }}" alt="Card image cap" >
-                                 <div class="card-body">
+                                   <div class="card-body">
                                     <h5 class="card-title"><a href="{{route('restaurants.show', $restaurant->id)}}" style="text-decoration: none"> {{$restaurant->name}}</a></h5>
                                      <p class="card-text"> 
                                         {{-- by<b>{{$restaurant->user->name}}</b> --}}
                                         {{$restaurant->created_at->diffForHumans() }}</p>
                                      <p class="card-text">
                                             Available Food category:{{$restaurant->food_category->name}}</p>
-                                </div>
+                                    </div>
                                         <div class="card-footer">
-                                            <div class="row">
-                                               <a href="{{route('restaurants.edit', $restaurant->id)}}" class="btn btn-primary">Edit</a>
-                                                &nbsp;
-                                                <form action="{{route('restaurants.delete', $restaurant->id)}}" method="POST">
-                                                    @csrf
-                                                    <button class="btn btn-danger" onclick='return confirm("Are you sure to delete")' style="float: right">Delete</button>
+                                            <div class="row" style="padding-left:30px;">
+                                               <a href="{{route('restaurants.edit', $restaurant->id)}}" ><i class="fa fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                               
+                                                <a href="{{route('resaturants.hdelete', $restaurant->id)}}" ><i class="fa fa-trash" aria-hidden="true"></i></a> 
                                                 
-                                                </form>
-                                             </div>
+
+                                                {{-- <form action="{{route('resaturants.hdelete', $restaurant->id)}}" method="POST">
+                                                    @csrf 
+                                                     <button class="btn btn-danger" onclick='return confirm("Are you sure to delete")' style="float: right">Delete</button>
+                                                
+                                                </form> --}}
+                                            </div>
                                         </div>
                                     </div>
                         
-                                </div>  
+                     </div>  
                 @empty    
                 @endforelse 
-            </div> 
+                 </div> 
             
        </div>
         

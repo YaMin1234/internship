@@ -9,7 +9,8 @@ class CartController extends Controller
 {
     public function cart()
     {
-        return view('foodDelivery.cart');
+    
+     return view('foodDelivery.cart');
     }
 
     public function addToCart($id)

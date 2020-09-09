@@ -11,10 +11,7 @@ use App\Menu;
 
 class CustomerController extends Controller
 {
-    public function home()
-    {
-        return view('foodDelivery.home');
-    }
+  
    public function index()
    {
         $restaurants = Restaurant::all();
@@ -34,6 +31,17 @@ class CustomerController extends Controller
         $menus = Menu::where('restaurant_id',$id)->with('menu_type')->get();
         return view('foodDelivery.show',compact('restaurant','menus', 'meal_types','menu_types') );
    }
+
+   public function showMenu(Menu_type $menu_type)
+    {
+        $id = $menu_type->restaurant->id;
+        $restaurant = Restaurant::where('id', $id)->with('meal_types')->first();
+        $meal_types = $restaurant->meal_types;
+        $menus = Menu::where('restaurant_id',$id)->with('menu_type')->get();
+        $menu_types= Menu_type::where('id',$menu_type->id)->get();
+        
+        return view('foodDelivery.showMenu',compact('restaurant','menus', 'meal_types','menu_types') );
+    }
    public function addToCart($id)
     {
         $menu = Menu::find($id);

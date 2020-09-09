@@ -192,11 +192,32 @@ class RestaurantController extends Controller
      * @param  \App\Restaurant  $restaurant
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    // public function destroy($id)
+    // {
+    //     Restaurant::find($id)->delete();
+    //     return back();
+    // }
+
+    public function trash()
     {
-        Restaurant::find($id)->delete();
+       
+         $restaurant = Restaurant::onlyTrashed()->get();
+        return view('restaurants.softdeleted')->with('restaurants',$restaurant);
+    }
+
+    public function hdelete($id)
+    {
+      $restaurant = Restaurant::withTrashed()->where('id',$id)->first();
+      $restaurant->Delete();
         return back();
     }
+    public function restore($id)
+    {
+      $restaurant = Restaurant::withTrashed()->where('id',$id)->first();
+      $restaurant->restore();
+        return back();
+    }
+
     
    
 }

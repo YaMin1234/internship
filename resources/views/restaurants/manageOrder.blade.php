@@ -57,10 +57,20 @@
                         </li>
                         <li class="nav-item">
                             @auth
-                            <a class="nav-link text-success"
-                        href="{{route('restaurants.create')}}">Create Restaurant </a>
+                            <div class="dropdown">
+                                <button class="btn btn-succress dropdown-toggle" type="button" data-toggle="dropdown">Restaurant
+                                <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                  <li><a class="nav-link text-success"
+                                    href="{{route('restaurants.create')}}">Create Restaurant </a></li>
+                                  <li><a class="nav-link text-success"
+                                    href="{{route('resaturants.trashed')}}">Restore Restaurants</a></li>
+                                  <li><a class="nav-link text-success"
+                                    href="{{route('restaurants')}}">Restaurants</a></li>
+                                </ul>
+                              </div>
                             @endauth
-                            </li>
+                        </li>
                         <li class="nav-item">
                                 @auth
                                 <a class="nav-link text-success"
@@ -73,6 +83,12 @@
                             href="/manage-order">Manage Orders</a>
                             @endauth
                        </li>
+                       <li class="nav-item">
+                        @auth
+                        <a class="nav-link text-success"
+                        href="/all-message">Messages</a>
+                        @endauth
+                   </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -149,15 +165,13 @@
                         <!-- <td class="center">{{ $order->order_status }}</td> -->
 						<td class="center">
 							@if($order->order_status==0)
-							<span class="label label-danger">Order Confirmed</span>
+                        <span class="label label-danger">Order Confirm</span>
 							@elseif($order->order_status==1)
-                             <span class="label label-primary">Food being Prepared</span>
+                             <span class="label label-primary">Food being prepared</span>
                              @elseif($order->order_status==2)
-                             <span class="label label-success">Food Delivered</span>
+                             <span class="label label-success">{{$message}}</span>
                              @elseif($order->order_status==3)
-                             <span class="label label-info">Food Pick up</span>
-                             @elseif($order->order_status==4)
-                             <span class="label label-info">Order Complete</span>
+                             <span class="label label-info">Order finish</span>
                              @else
                              <span class="label label-danger">Order Cancelled</span>
 							@endif
@@ -172,15 +186,11 @@
 							</a>
 							
                             @elseif($order->order_status==1)
-                            <a class="btn btn-success" href="{{route('delivered',$order->order_id)}}">
+                            <a class="btn btn-success" href="{{route('update',$order->order_id)}}">
 								<i class="halflings-icon white thumbs-down"></i>  
                             </a>
                             @elseif($order->order_status==2)
-                            <a class="btn btn-info" href="{{route('pickup',$order->order_id)}}">
-								<i class="halflings-icon white thumbs-down"></i>  
-                            </a>
-                            @elseif($order->order_status==3)
-                            <a class="btn btn-success" href="{{route('finish',$order->order_id)}}">
+                            <a class="btn btn-info" href="{{route('finish',$order->order_id)}}">
 								<i class="halflings-icon white thumbs-down"></i>  
                             </a>
                         
@@ -194,7 +204,10 @@
 
                         <a class="btn btn-danger" href="{{route('delete_order',$order->order_id)}}" id="delete">
 								<i class="halflings-icon white trash"></i> 
-							</a>
+                            </a>
+                        <a class="btn btn-warning" href="{{route('send-mail',$order->order_id)}}">
+                            <i class="halflings-icon white trash"></i> 
+                        </a>
 						</td>
 						</tr>				
 					  </tbody>

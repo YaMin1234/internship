@@ -103,8 +103,8 @@
 
 
 <body>
-    <header id="header"><!--header-->
-        <div class="header_top"><!--header_top-->
+    <header id="header">
+        <div class="header_top">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-6">
@@ -128,9 +128,9 @@
                     </div> --}}
                 </div>
             </div>
-        </div><!--/header_top-->
+        </div>
         
-        <div class="header-middle"><!--header-middle-->
+        <div class="header-middle">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-4">
@@ -142,8 +142,7 @@
                     <div class="col-sm-8">
                         <div class="shop-menu pull-right">
                             <ul class="nav navbar-nav">
-                                <!-- <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
-                                <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li> -->
+                              
 
                         <?php $customer_id=session()->get('customer_id');
                               $shipping_id=session()->get('shipping_id');
@@ -172,9 +171,9 @@
                     </div>
                 </div>
             </div>
-        </div><!--/header-middle-->
+        </div>
     
-        <div class="header-bottom"><!--header-bottom-->
+        <div class="header-bottom">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-9">
@@ -191,8 +190,7 @@
                                 <li><a href="{{route('foodDelivery.index')}}" class="active">Home</a></li>
                                 <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <!-- <li><a href="shop.html">Products</a></li>
-                                        <li><a href="product-details.html">Product Details</a></li>  -->
+                                     
                                        <?php $customer_id=Session::get('customer_id'); ?>
                                           <?php if($customer_id != NULL){?>
                                            <li><a href="{{route('checkout')}}"> Checkout</a></li>
@@ -203,13 +201,7 @@
                                         
                                     </ul>
                                 </li> 
-                                <!-- <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub_menu">
-                                        <li><a href="blog.html">Blog List</a></li>
-                                        <li><a href="blog-single.html">Blog Single</a></li>
-                                    </ul>
-                                </li>  -->
-                                <!-- <li><a href="404.html">404</a></li> -->
+                              
                                 <li><a href="{{route('contact')}}">Contact</a></li>
                             </ul>
                         </div>
@@ -217,8 +209,8 @@
                     
                 </div>
             </div>
-        </div><!--/header-bottom-->
-    </header><!--/header-->
+        </div>
+    </header>
     
 
         <div class="container">
@@ -239,10 +231,10 @@
                             </div>
                         
                          <?php } ?> 
-                           </div><!--/category-products-->
+                           </div>
                       </div>
 
-                        <div class="price-range"><!--price-range-->
+                        <div class="price-range">
                             <h2>Price Range</h2>
                             <div class="well text-center">
                                  <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2" ><br />

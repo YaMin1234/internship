@@ -20,6 +20,7 @@ class CreateShippingsTable extends Migration
             $table->string('shipping_address');
             $table->string('shipping_mobile_number');
             $table->string('shipping_city');
+            $table->string('deliveryOrPickup');
             $table->timestamps();
         });
     }

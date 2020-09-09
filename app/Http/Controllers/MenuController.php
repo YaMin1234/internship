@@ -109,9 +109,23 @@ class MenuController extends Controller
     public function update(Request $request, Menu $menu,$id)
     {
         $menu = Menu::findOrFail($id);
-        $menu->update($request->all());
+        $image=$request->file('photos');
+        if($image){
+            $imageName=$image->getClientOriginalName();
+            $image->move('photos',$imageName);
+
+            $menu->photos=$imageName;
+
+        }
+        $menu->name = $request->name;
+        $menu->menu_type_id = $request->menu_type_id;
+        $menu->price=$request->price;
+        $menu->save();
+    
         return redirect('/restaurants');
     }
+
+        
 
     /**
      * Remove the specified resource from storage.

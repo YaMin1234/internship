@@ -7,7 +7,7 @@
     <table id="cart" class="table table-hover table-condensed">
         <thead>
         <tr>
-            <th style="width:50%">Product</th>
+            <th style="width:50%">Menu</th>
             <th style="width:10%">Price</th>
             <th style="width:8%">Quantity</th>
             <th style="width:22%" class="text-center">Subtotal</th>
@@ -28,15 +28,15 @@
                         <div class="row">
                             <div class="col-sm-3 hidden-xs"><img src="{{  URL::asset('/photos/'. $details['photo']) }}" width="100" height="100" class="img-responsive"/></div>
                             <div class="col-sm-9">
-                                <h4 class="nomargin">{{ $details['name'] }}</h4>
+                                <b class="nomargin">{{ $details['name'] }}</b>
                             </div>
                         </div>
                     </td>
-                    <td data-th="Price">${{ $details['price'] }}</td>
+                    <td data-th="Price">MMK{{ $details['price'] }}</td>
                     <td data-th="Quantity">
                         <input type="number" value="{{ $details['quantity'] }}" class="form-control quantity" />
                     </td>
-                    <td data-th="Subtotal" class="text-center">${{ $details['price'] * $details['quantity'] }}</td>
+                    <td data-th="Subtotal" class="text-center">MMK{{ $details['price'] * $details['quantity'] }}</td>
                     <td class="actions" data-th="">
                         <button class="btn btn-info btn-sm update-cart" data-id="{{ $id }}"><i class="fa fa-refresh" ></i></button>
                         <button class="btn btn-danger btn-sm remove-from-cart" data-id="{{ $id }}"><i class="fa fa-trash-o"></i></button>
@@ -47,22 +47,24 @@
  
         </tbody>
         <tfoot>
-        <tr class="visible-xs">
-            <td class="text-center"><strong>Total {{ $total }}</strong></td>
-        </tr>
+        
         <tr>
             <td><a href="{{ route('foodDelivery.index') }}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
             <td colspan="2" class="hidden-xs"></td>
-            <td class="hidden-xs text-center"><strong>Total ${{ $total }}</strong></td>
+            <td class="hidden-xs text-center"><strong>Total MMK{{ $total }}</strong></td>
         </tr>
         <tr>
             
             <td colspan="2" class="hidden-xs"></td>
             <td class="hidden-xs text-center">
-            <a href="{{route('login-check')}}" class="btn btn-primary" name="delivery">Delivery</a>
+                <form action="{{route('login-check')}}" method="GET">
+                    <input type="submit" class="btn btn-success" value="Delivery" name="submitbutton">
+                </form>
             </td>
             <td class="hidden-xs text-center">
-               <a href="{{route('login-check')}}" class="btn btn-primary" style="float: right" name="pickup">Pick Up</a>
+                <form action="{{route('login-check')}}" method="GET">
+                    <input type="submit" class="btn btn-success" value="Pickup" name="submitbutton">
+                </form>
             </td>
         </tr>
 

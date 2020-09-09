@@ -11,8 +11,11 @@
 |
 */
 
+use App\Http\Controllers\CartController;
+use App\Mail\NewUserNotification;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Spatie\Permission;
 use Spatie\Permission\Contracts\Role;
 
@@ -31,14 +34,16 @@ Route::group(['middleware' => ['role:admin']], function () {
 
 
 
-Route::get('/restaurants', 'RestaurantController@index');
+Route::get('/restaurants', 'RestaurantController@index')->name('restaurants');
 Route::get('/restaurants/create', 'RestaurantController@create')->name('restaurants.create');
 Route::get('/restaurants/{restaurant}', 'RestaurantController@show')->name('restaurants.show');
 Route::post('/restaurants', 'RestaurantController@store')->name('restaurants.store');
 Route::get('/restaurants/editRestaurant/{id}', 'RestaurantController@edit')->name('restaurants.edit');
 Route::post('/restaurants/destroy/{id}','RestaurantController@destroy')->name('restaurants.delete');
 Route::patch('/restaurants/update/{id}','RestaurantController@update')->name('restaurants.update');
-
+Route::get('/trash','RestaurantController@trash')->name('resaturants.trashed');
+Route::get('/restaurants/hdelete/{id}','RestaurantController@hdelete')->name('resaturants.hdelete');
+Route::get('/restaurants/restore/{id}','RestaurantController@restore')->name('resaturants.restore');
 
 
 Route::get('/menus/create', 'MenuController@create')->name('menus.create');
@@ -82,8 +87,8 @@ Route::post('/order-place','CheckoutController@order_place');
 
 Route::get('/manage-order','CheckoutController@manage_order');
 Route::get('/view-order/{order_id}','CheckoutController@view_order')->name('view_order');
-Route::get('/prepared_order/{order_id}','CheckoutController@prepared_order')->name('pepared');
-Route::get('/delivered_order/{order_id}','CheckoutController@delivered_order')->name('delivered');
+Route::get('/prepared_order/{order_id}','CheckoutController@prepared_order')->name('prepared');
+Route::get('/update_order/{order_id}','CheckoutController@update_order')->name('update');
 Route::get('/pickup_order/{order_id}','CheckoutController@pickup_order')->name('pickup');
 Route::get('/finish_order/{order_id}','CheckoutController@finish_order')->name('finish');
 Route::get('/destroy/{order_id}','CheckoutController@destroy')->name('delete_order');
@@ -92,8 +97,10 @@ Route::get('/foodDelivery/home','CustomerController@home');
 Route::get('/foodDelivery','CustomerController@index')->name('foodDelivery.index');
 Route::get('/foodDelivery/show/{id}','CustomerController@show')->name('foodDelivery.show');
 Route::get('/foodDelivery/category/{id}','CustomerController@category')->name('foodDelivery.category');
+Route::get('/foodDelivery/{menu_type}', 'CustomerController@showMenu')->name('foodDelivery.showMenu');
 
-Route::get('/foodDelivery/cart', 'CartController@cart')->name('foodDelivery.cart');
+Route::get('/cart','CartController@cart')->name('foodDelivery.cart');
+// Route::get('/foodDelivery/cart', 'CartController@cart')->name('foodDelivery.cart');
 Route::get('/foodDelivery/add-to-cart/{id}', 'CartController@addToCart')->name('foodDelivery.addToCart');
 Route::patch('/foodDelivery/update-cart', 'CartController@update')->name('foodDelivery.updateCart');
 Route::delete('/foodDelivery/remove-from-cart', 'CartController@remove')->name('foodDelivery.removeCart');
@@ -109,13 +116,8 @@ Route::post('/ok-message/{contact_id}','ContactController@ok_message')->name('ok
 Route::get('/home', 'HomeController@index')->name('home');
 
 
- 
-
-// Route::resource('/', 'Auth\UserController');
-// Route::resource('/admin','RestaurantController');
-
-// Route::resource('/restaurants', 'MenuController');
-// Route::resource('restaurant' , 'RestaurantController');
+Route::get('/invoice/{order_id}','HomeController@invoice')->name('invoice');
+Route::get('send/{order_id}','HomeController@sendMail')->name('send-mail');
 
 
 

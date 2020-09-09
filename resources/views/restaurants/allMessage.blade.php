@@ -57,10 +57,20 @@
                         </li>
                         <li class="nav-item">
                             @auth
-                            <a class="nav-link text-success"
-                        href="{{route('restaurants.create')}}">Create Restaurant </a>
+                            <div class="dropdown">
+                                <button class="btn btn-succress dropdown-toggle" type="button" data-toggle="dropdown">Restaurant
+                                <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                  <li><a class="nav-link text-success"
+                                    href="{{route('restaurants.create')}}">Create Restaurant </a></li>
+                                  <li><a class="nav-link text-success"
+                                    href="{{route('resaturants.trashed')}}">Restore Restaurants</a></li>
+                                  <li><a class="nav-link text-success"
+                                    href="{{route('restaurants')}}">Restaurants</a></li>
+                                </ul>
+                              </div>
                             @endauth
-                            </li>
+                        </li>
                         <li class="nav-item">
                                 @auth
                                 <a class="nav-link text-success"

@@ -54,11 +54,21 @@
                         </li>
                         <li class="nav-item">
                             @auth
-                            <a class="nav-link text-success"
-                            href="/restaurants"> Restaurants </a>
-                            @endauth 
-                            </li>
-                            <li class="nav-item">
+                            <div class="dropdown">
+                                <button class="btn btn-succress dropdown-toggle" type="button" data-toggle="dropdown">Restaurant
+                                <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                  <li><a class="nav-link text-success"
+                                    href="{{route('restaurants.create')}}">Create Restaurant </a></li>
+                                  <li><a class="nav-link text-success"
+                                    href="{{route('resaturants.trashed')}}">Restore Restaurants</a></li>
+                                  <li><a class="nav-link text-success"
+                                    href="{{route('restaurants')}}">Restaurants</a></li>
+                                </ul>
+                              </div>
+                            @endauth
+                        </li>
+                        <li class="nav-item">
                                 @auth
                                 <a class="nav-link text-success"
                                 href="/menu_types">Menu Types</a>
@@ -67,9 +77,15 @@
                         <li class="nav-item">
                             @auth
                             <a class="nav-link text-success"
-                            href="/orders">Manage Orders</a>
+                            href="/manage-order">Manage Orders</a>
                             @endauth
                        </li>
+                       <li class="nav-item">
+                        @auth
+                        <a class="nav-link text-success"
+                        href="/all-message">Messages</a>
+                        @endauth
+                   </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

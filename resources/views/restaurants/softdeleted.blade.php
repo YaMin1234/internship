@@ -16,9 +16,12 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+   
+
 </head>
 <style>
     img.avatar1 {
@@ -26,7 +29,7 @@
             border-radius: 50%;
                }
     #nav{
-        height:15px;
+        height: 15px;
     }
 
 </style>
@@ -56,7 +59,7 @@
                         <li class="nav-item">
                             @auth
                             <div class="dropdown">
-                                <button class="btn btn-succress dropdown-toggle" type="button" data-toggle="dropdown">Restaurant
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Restaurant
                                 <span class="caret"></span></button>
                                 <ul class="dropdown-menu">
                                   <li><a class="nav-link text-success"
@@ -94,11 +97,11 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="users/login">{{ __('Login') }}</a>
+                                <a class="nav-link" href="/users/login">{{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="users/register">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="/users/register">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
@@ -116,6 +119,7 @@
 
                                     <form id="logout-form" action="/logout" method="POST" style="display: none;">
                                         @csrf
+                                        
                                     </form>
                                 </div>
                             </li>
@@ -124,83 +128,55 @@
                 </div>
             </div>
         </nav>
-
         <main>
-            <div class="container">
-                @if($errors->any())
-                   <div class="alert alert-warning">
-                       <ol>
-                           @foreach($errors->all() as $error)
-                           <li>{{$error}}</li>
-                           @endforeach
-                       </ol>
-                   </div>
-                   @endif
-            </div>
-            <h1> Create Restaurant</h1>
-            <form action="{{ route('restaurants.store')}}" method="POST" enctype="multipart/form-data">
-               
-                @csrf
-            <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-        
-                <div class=" container form-group">
-                    <label>Restaurant Name</label>
-                    <input type="text" name="name" class="form-control col-md-5" placeholder="Your Restaurant Name">
-                </div>
-               
-                <div class="container form-group">
-                    <label>City</label>
-                    <select class="form-control col-md-5" name="township_id">
-                        <option>Choose....</option>
-                    @foreach($townships as $township)
-                        <option value="{{ $township->id }}">
-                        {{ $township->name }}{{","}} {{$township->postal_code}}
-                        </option>
-                    @endforeach
-                    </select>
-                </div>
-                <div class=" container form-group">
-                    <label>Address</label>
-                    <input type="text" name="address" placeholder="Unit, Street Name">
-                </div>
-                <div class="container form-group">
-                    <label>Food_Category</label>
-                    <select class="form-control col-md-5" name="food_category_id">
-                        <option>Choose....</option>
-                    @foreach($categories as $category)
-                        <option value="{{ $category->id }}">
-                        {{ $category->name }}
-                        </option>
-                    @endforeach
-                    </select>
-                </div>
-                <div class="container form-group">
-                    <label>Meal Types</label>
-                    @foreach($meals as $meal)
-                     <input type="checkbox" name="meal_type_id[]" value="{{ $meal->id}}">{{$meal->name}}
-                     
-                    @endforeach
-                </div>
-                <div class="container from-group">
-                    <label>Deliver Hour</label>
-                    <input type="text" name="delivery_hour" placeholder="Deliver Days and Hour">
-                </div>
-                <div class="container from-group">
-                    <label>Phone Number</label>
-                    <input type="text" name="phone" placeholder="Your Phone Number">
-                </div>
-                
-                <div class="container form-group">
-                    <input type="file" name="photos">
-                </div>
-                    <div class="container form-group">
-                        <button class="btn btn-info">Create Restaurant</button>
-                    </div>
-        
-        
-        </main>
-    </div>
+
+          <p class="alert-success">
+			<?php
+			$message=session()->get('message');
+			if($message)
+			{
+				echo $message;
+				session()->put('message',null);
+
+			}
+           ?>
+		</p>
+		<div class="row-fluid sortable">		
+			<div class="box span12">
+				<div class="box-content">
+					<table class="table table-striped table-bordered bootstrap-datatable datatable">
+					  <thead>
+						  <tr>
+							  <th>Photos</th>
+							  <th>Restaurant Name</th>
+							  <th>Restore </th>
+					
+						  </tr>
+                      </thead> 
+                      <tbody>
+                    
+                 @foreach( $restaurants as $restaurant)
+                 
+					 <tr>
+						
+						<td><img src="{{ URL::asset('/photos/'. $restaurant['photos'])}}" width="100" height="100" class="img-responsive"/></td>
+						<td class="center">{{$restaurant['name']}}</td>
+						<td class="center">
+                        <a href="{{route('resaturants.restore',$restaurant['id'])}}" ><i class="fa fa-undo" aria-hidden="true"></i></a>
+                        </td>
+                       
+					  <tr>
+                   @endforeach
+                         
+                </tbody>
+                       
+				  </table>            
+				</div>
+			</div><!--/span-->
+		
+		</div><!--/row-->
+
+    </main>
+</div>
 </body>
 </html>
-
-   

@@ -46,4 +46,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function routeNotificationForMail($notification)
+    {
+        return $this->email_address;
+    }
+
 }

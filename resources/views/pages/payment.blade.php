@@ -290,7 +290,8 @@ form{
 						</div>	
 					<form action="{{url('order-place')}}" method="post">
 						@csrf
-					<input type="hidden" value="{{$total}}" name="total">
+                    <input type="hidden" value="{{$total}}" name="total">
+                   
 					  <input type="radio" name="payment_method" value="cash">Cash On Delivery<br>
 					  <input type="radio" name="payment_method" value="card"> Debit Card<br>
 					  <input type="submit" name="" value="Done">
