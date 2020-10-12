@@ -31,7 +31,13 @@
     #nav{
         height: 15px;
     }
-
+    .shadow
+   {
+    box-shadow:5px 10px 18px #888888;
+    width:800px;
+    background-color:white;
+   
+   }
 </style>
 <body>
     <div id="app">
@@ -129,15 +135,14 @@
             </div>
         </nav>
 
-        <main> 
-           
+        <main class="py-4"> 
+            <div class="container shadow">
             <form action="{{ route('users.update',$user->id)}}" method="POST">
 
               @csrf
               @method('patch')
-              <div class="container form-group">
-                 <h5>Update your profile.</h5>
-              </div>
+              <h3 style="padding-left:200px;color:#EF895D;"> Create Menu_type</h3>
+                <hr>
               <div class="container form-group">
               <label for="name">Name</label>
               <input type="text" name="name" value="{{$user->name}}" class="form-control col-md-5">
@@ -154,11 +159,11 @@
              </div>
             
              
-             <div class="container form-group">
+             <div style="padding-left:200px;">
                 <button class="btn btn-outline-info col-md-4">Update Profile</button>
-            </div>
+            </div><br>
             </form>
-          
+            </div>
           </main>
       </div>
   </body>
