@@ -9,15 +9,19 @@
 
     <title>{{ 'Food Delivery'}}</title>
 
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+   
+
 </head>
 <style>
     img.avatar1 {
@@ -27,13 +31,21 @@
     #nav{
         height: 15px;
     }
+.shadow
+   {
+    box-shadow:5px 10px 18px #888888;
+    width:800px;
+    background-color:white;
+   
+   }
+
 </style>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container" id="nav">
                 <img src="{{ URL::asset('/photos/'. 'logo3.jpg') }}" alt="Avatar" class="avatar1">
-                <a class="navbar-brand" href="{{ url('/') }}" style="color:pink">
+                <a class="navbar-brand" href="{{ url('/') }}" style="color:#EF895D">
                     Food Delivery
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -46,30 +58,45 @@
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
                             @auth
-                        <a class="nav-link text-success" href="{{route('users.edit',Auth::user()->id)}}">
+                        <a class="nav-link" style="color:#EF895D" href="{{route('users.edit',Auth::user()->id)}}">
                             Update Profile
                          </a>
                          @endauth
                         </li>
                         <li class="nav-item">
                             @auth
-                            <a class="nav-link text-success"
-                            href="/restaurants"> Restaurants </a>
-                            @endauth 
-                            </li>
-                            <li class="nav-item">
+                            <div class="dropdown">
+                                <button class="btn btn-succress dropdown-toggle" type="button" data-toggle="dropdown">Restaurant
+                                <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                  <li><a class="nav-link " style="color:#EF895D"
+                                    href="{{route('restaurants.create')}}">Create Restaurant </a></li>
+                                  <li><a class="nav-link" style="color:#EF895D"
+                                    href="{{route('resaturants.trashed')}}">Restore Restaurants</a></li>
+                                  <li><a class="nav-link" style="color:#EF895D"
+                                    href="{{route('restaurants')}}">Restaurants</a></li>
+                                </ul>
+                              </div>
+                            @endauth
+                        </li>
+                        <li class="nav-item">
                                 @auth
-                                <a class="nav-link text-success"
+                                <a class="nav-link" style="color:#EF895D"
                                 href="/menu_types">Menu Types</a>
                                 @endauth
                            </li>
                         <li class="nav-item">
                             @auth
-                            <a class="nav-link text-success"
-                            href="/orders">Manage Orders</a>
+                            <a class="nav-link" style="color:#EF895D"
+                            href="/manage-order">Manage Orders</a>
                             @endauth
                        </li>
-
+                       <li class="nav-item">
+                        @auth
+                        <a class="nav-link" style="color:#EF895D"
+                        href="/all-message">Messages</a>
+                        @endauth
+                   </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -77,11 +104,11 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="users/login">{{ __('Login') }}</a>
+                                <a class="nav-link" href="/users/login">{{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="users/register">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="/users/register">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
@@ -99,6 +126,7 @@
 
                                     <form id="logout-form" action="/logout" method="POST" style="display: none;">
                                         @csrf
+                                        
                                     </form>
                                 </div>
                             </li>
@@ -108,7 +136,7 @@
             </div>
         </nav>
 
-        <main>
+        <main class="py-4"> 
             <div class="container">
                 @if($errors->any())
                    <div class="alert alert-warning">
@@ -120,21 +148,26 @@
                    </div>
                    @endif
             </div>
-              <h3> Create Menu_Type</h3>
+            <div class="container shadow">
               <form action="{{ route('menu_types.store')}}" method="POST">
                
                 @csrf
+                <h3 style="padding-left:200px;color:#EF895D;"> Create Menu_type</h3>
+                <hr>
                 <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
                 <input type="hidden" name="restaurant_id" value="{{$restaurant_id}}">
                 
                 <div class=" container form-group">
-                    <label>Menu Type Name</label>
+                    <label style="color:#EF895D;">Menu Type Name</label>
                     <input type="text" name="name" class="form-control col-md-5" placeholder="Menu Type Name">
                 </div>
                
-                <div class="container form-group">
-                    <button class="btn btn-info">Create Menu Type</button>
+                <div style="padding-left:200px;">
+                    <button class="btn btn-outline-info col-md-4">Create Menu Type</button>
                 </div>
+                <br>
+              </form>
+            </div>
         
         </main>
     </div>

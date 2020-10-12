@@ -6,6 +6,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>{{ 'Food Delivery'}}</title>
 
 
@@ -15,18 +16,29 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+   
+
 </head>
 <style>
     img.avatar1 {
             width: 3%;
             border-radius: 50%;
                }
-   #nav{
-       height: 15px;
+    #nav{
+        height: 15px;
+    }
+    .shadow
+   {
+    box-shadow:5px 10px 18px #888888;
+    width:800px;
+    background-color:white;
+   
    }
+  
 
 </style>
 <body>
@@ -47,7 +59,7 @@
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
                             @auth
-                        <a class="nav-link text-success" href="{{route('users.edit',Auth::user()->id)}}">
+                        <a class="nav-link" href="{{route('users.edit',Auth::user()->id)}}"  style="color: #EF895D">
                             Update Profile
                          </a>
                          @endauth
@@ -58,11 +70,11 @@
                                 <button class="btn btn-succress dropdown-toggle" type="button" data-toggle="dropdown">Restaurant
                                 <span class="caret"></span></button>
                                 <ul class="dropdown-menu">
-                                  <li><a class="nav-link text-success"
+                                  <li><a class="nav-link"  style="color: #EF895D"
                                     href="{{route('restaurants.create')}}">Create Restaurant </a></li>
-                                  <li><a class="nav-link text-success"
+                                  <li><a class="nav-link"  style="color: #EF895D"
                                     href="{{route('resaturants.trashed')}}">Restore Restaurants</a></li>
-                                  <li><a class="nav-link text-success"
+                                  <li><a class="nav-link"  style="color: #EF895D"
                                     href="{{route('restaurants')}}">Restaurants</a></li>
                                 </ul>
                               </div>
@@ -70,19 +82,19 @@
                         </li>
                         <li class="nav-item">
                                 @auth
-                                <a class="nav-link text-success"
+                                <a class="nav-link"  style="color: #EF895D"
                                 href="/menu_types">Menu Types</a>
                                 @endauth
                            </li>
                         <li class="nav-item">
                             @auth
-                            <a class="nav-link text-success"
+                            <a class="nav-link"  style="color: #EF895D"
                             href="/manage-order">Manage Orders</a>
                             @endauth
                        </li>
                        <li class="nav-item">
                         @auth
-                        <a class="nav-link text-success"
+                        <a class="nav-link"  style="color: #EF895D"
                         href="/all-message">Messages</a>
                         @endauth
                    </li>
@@ -93,11 +105,11 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="users/login">{{ __('Login') }}</a>
+                                <a class="nav-link" href="/users/login">{{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="users/register">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="/users/register">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
@@ -115,6 +127,7 @@
 
                                     <form id="logout-form" action="/logout" method="POST" style="display: none;">
                                         @csrf
+                                        
                                     </form>
                                 </div>
                             </li>
@@ -124,7 +137,7 @@
             </div>
         </nav>
 
-        <main>
+        <main class="py-4"> 
             <div class="container">
                 @if($errors->any())
                    <div class="alert alert-warning">
@@ -136,20 +149,35 @@
                    </div>
                    @endif
             </div>
-            <h1> Update Restaurant</h1>
+            <div class="container shadow">
             <form action="{{ route('restaurants.update',$restaurant->id)}}" method="POST" enctype="multipart/form-data">
                
                 @csrf
                 @method('PATCH')
-            <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-        
-                <div class=" container form-group">
-                    <label>Restaurant Name</label>
-                    <input type="text" name="name" class="form-control col-md-5" value="{{$restaurant->name}}">
+                <h3 style="padding-left:200px;color:#EF895D;"> Update Restaurant</h3>
+                <hr>
+                
+                
+                    <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+
+                    <label style="color: #EF895D;">Restaurant Name</label>
+                    <input type="text" name="name" class="form-control" value="{{$restaurant->name}}">
+                        
+            
+                    <div class="form-row">
+                <div class="form-group col-md-6">
+                <label style="color: #EF895D;">Restaurant Cover</label><br>
+                    <img  src="{{ URL::asset('/photos/'. $restaurant->photos) }}" alt="Card image cap" style="width: 100px;height:60px;">
+                </div>
+                <div class="form-group col-md-6">
+                    <label style="color: #EF895D;">New Restaurant Cover</label><br>
+                    <input type="file" name="photos">
+                </div>
                 </div>
                
-                <div class="container form-group">
-                    <label>City</label>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                    <label style="color: #EF895D;">City</label>
                     <select class="form-control col-md-5" name="township_id">
                         <option>Choose....</option>
                     @foreach($townships as $township)
@@ -159,12 +187,24 @@
                     @endforeach
                     </select>
                 </div>
-                <div class=" container form-group">
-                    <label>Address</label>
-                <input type="text" name="address" value="{{$restaurant->address}}">
+                <div class="form-group col-md-6">
+                    <label style="color: #EF895D;">Phone Number</label>
+                    <input type="text" name="phone" value="{{$restaurant->phone}}" class="form-control col-md-5">
                 </div>
-                <div class="container form-group">
-                    <label>Food_Category</label>
+            </div>
+
+                
+                    <label style="color: #EF895D;">Address</label>
+                <input type="text" name="address" value="{{$restaurant->address}}" class="form-control">
+                <label style="color: #EF895D;">Deliver Hour</label><br>
+                <input type="text" name="delivery_hour" value="{{$restaurant->delivery_hour}}" class="form-control">
+            
+              
+
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                    <label style="color: #EF895D;">Food_Category</label>
                     <select class="form-control col-md-5" name="food_category_id">
                         <option>Choose....</option>
                     @foreach($categories as $category)
@@ -174,37 +214,24 @@
                     @endforeach
                     </select>
                 </div>
-
-               
-                <div class="container form-group">
-                    <label>Meal Types</label>
+                <div class="form-group col-md-6">
+                    <label style="color: #EF895D;">Meal Types</label><br>
                     @foreach($meals as $meal)
-                    
                      <input type="checkbox" name="meal_type_id[]" value="{{ $meal->id}}">{{$meal->name}}
                      
                     @endforeach
                 </div> 
-                <div class="container from-group">
-                    <label>Deliver Hour</label>
-                    <input type="text" name="delivery_hour" value="{{$restaurant->delivery_hour}}">
+            </div>
+
+                <div style="padding-left:200px;">
+                    <button class="btn btn-outline-info col-md-4">Update Restaurant</button>
                 </div>
-                <div class="container from-group">
-                    <label>Phone Number</label>
-                    <input type="text" name="phone" value="{{$restaurant->phone}}">
-                </div>
-                <div class="container from-group">
-                    <img  src="{{ URL::asset('/photos/'. $restaurant->photos) }}" alt="Card image cap" style="width: 100px;height:60px;">
-                </div>
-                <div class="container form-group">
-                    <input type="file" name="photos">
-                </div>
-                <div class="container form-group">
-                    <button class="btn btn-info">Update Restaurant</button>
-                </div>
-        
+                <br>
+            </form>
+        </div>
         </main>
-    </div>
+
+</div>
+
 </body>
 </html>
-
-   

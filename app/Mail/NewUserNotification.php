@@ -32,7 +32,7 @@ class NewUserNotification extends Mailable
     public function build()
     {
       $order_id = $this->order_id;
-      
+    
       $order = DB::table('orders')->where('order_id',$order_id)
                                          ->first();
     

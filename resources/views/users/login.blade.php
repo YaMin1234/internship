@@ -40,7 +40,8 @@
   }
 }
 form{
-  padding-left:400px;
+  padding-top:20px;
+  padding-left:500px;
 }
 
 /* .rgba-gradient {
@@ -75,12 +76,12 @@ img.avatar1 {
 
 </style>
 </head>
-<body  style="background-image:url('/photos/login.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center;">
+<body  style="background-image:url('/photos/register1.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center;">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container" id="nav">
               <img src="{{ URL::asset('/photos/'. 'logo3.jpg') }}" alt="Avatar" class="avatar1">
-                <a class="navbar-brand" href="{{ url('/') }}" style="color:pink">
+                <a class="navbar-brand" href="{{ url('/') }}" style="color:#EF895D">
                     Food Delivery
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -142,33 +143,23 @@ img.avatar1 {
     <div class="view" >
          <form class="pure-form pure-form-stacked" action="/users/login"  method="post">
          @csrf
-    {{-- <div class="imgcontainer">
-         <img src="{{ URL::asset('/photos/'. 'logo.jpg') }}" alt="Avatar" class="avatar">
-      </div> --}}
-        
-            {{-- <div class = "container form-group">
-                <label for="email">Email Address</label>
-                <input type="email" name="email" class="form-control col-md-5" placeholder="Enter Email" required>
-            </div>
-            <div class = "container form-group">
-                <label for="password">Password</label>
-                <input type="password" minlength="8" name="password" class="form-control col-md-5" required>
-            </div>
-
-            <div class="form-group">
-                <button class="btn btn-outline-info col-md-1" type="submit" name="login">Login</button>
-            </div> --}}
+    
             <div class="mask rgba-gradient align-items-center">
                   
                 <div class="container">
                  
                   <div class="row mt-15">
                     
-                    <div class="col-md-12 col-xl-7 mb-6">
+                    <div class="col-md-12 col-xl-6 mb-5">
                       <!--Form-->
                       <div class="card wow fadeInRight">
 
                         <div class="card-body">
+                          <div class="text-center">
+                            <h3 class="text text-white">
+                              <i class="fa fa-user text text-white"></i> Login</h3>
+                            <hr class="hr-light">
+                          </div>
                         
                           <div class="md-form">
                             <i class="fa fa-envelope prefix active text text-white "></i>

@@ -4,13 +4,17 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class adminController extends Controller
 {
     
     public function index()
-    {
-        $users = User::all();
+    {   
+        $id = Auth::user()->id;
+    
+        $users= DB::table('users')->where('id','!=',$id)->get();
         return view("admin.index",compact('users'));
    }
  

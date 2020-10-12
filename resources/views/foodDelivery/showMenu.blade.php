@@ -54,15 +54,21 @@
 .container1 .btn:hover {
  font-size: 13px;
 }
+.menuType:hover{
+    color:orange;
+}
+.menuName:hover{
+    color:orange;
+}
   </style>
 <body>
  
-<div class="container">
+    <div class=" bg-light" style="height:45px;">
  
-    <div class="row">
+        <div class="row">
         <div class="col-lg-12 col-sm-12 col-12 main-section">
             <div class="dropdown">
-                <button type="button" class="btn btn-info" data-toggle="dropdown">
+                <button type="button" class="btn btn-warning" data-toggle="dropdown">
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart <span class="badge badge-pill badge-danger">{{ count((array) session('cart')) }}</span>
                 </button>
                 <div class="dropdown-menu">
@@ -96,7 +102,7 @@
                     @endif
                     <div class="row">
                         <div class="col-lg-12 col-sm-12 col-12 text-center checkout">
-                            <a href="{{ route('foodDelivery.cart') }}" class="btn btn-primary btn-block">View all</a>
+                            <a href="{{ route('foodDelivery.cart') }}" class="btn btn-warning btn-block">View all</a>
                         </div>
                     </div>
                 </div>
@@ -110,7 +116,7 @@
     <main class="py-4">
         <div class="card">
             <div class="card-img-top">
-            <img  src="{{ URL::asset('/photos/'. $restaurant->photos) }}" alt="Card image cap">
+            <img  src="{{ URL::asset('/photos/'. $restaurant->photos) }}" alt="Card image cap"  width="1110">
             </div>
             <div class="card-body">
                 <h5 class="card-title">{{$restaurant->name}}</h5>
@@ -136,7 +142,7 @@
                 @method('GET')
                 <input type="hidden" name="restaurant_id" value="{{$restaurant->id}}">
                 <b>Main Menu</b>
-                <button class="btn btn-primary" style="float: right"><i class="fa fa-backward" aria-hidden="true"></i></button>
+                <button class="btn btn-warning" style="float: right"><i class="fa fa-backward" aria-hidden="true"></i></button>
             </form>
            
           </div>
@@ -158,13 +164,13 @@
                           <div class="col-sm-6">
                             <div class="shadow" >
                                
-                              <a href="{{ route('foodDelivery.addToCart',$menu->id) }}" style="font-size: 13px;padding-left:20px;text-decoration:none;font-weight:bold;">{{$menu->name}}</a> 
+                              <a href="{{ route('foodDelivery.addToCart',$menu->id) }}" style="font-size: 13px;padding-left:20px;text-decoration:none;font-weight:bold;" class="menuName">{{$menu->name}}</a> 
                                 <p style="font-size: 11px;padding-left:20px;">1pcs</p>
                                 <p style="font-size: 12px;padding-left:20px;">MMK {{$menu->price}}</p>
                                
                             <div class="container1">
                                 <img  src="{{ URL::asset('/photos/'. $menu->photos) }}" alt="Card image cap" > 
-                                <a href="{{ route('foodDelivery.addToCart',$menu->id) }}" class="btn btn-info text-center btn" role="button">+</a> 
+                                <a href="{{ route('foodDelivery.addToCart',$menu->id) }}" class="btn btn-warning text-center btn" role="button">+</a> 
                             </div>
                             
         

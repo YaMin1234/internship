@@ -93,4 +93,24 @@ class RegisterController extends Controller
         return redirect()->to('/users/login');
     
     }
+
+      public function adminRegisterationForm()
+      {
+        return view('admin.register');
+      }
+
+      protected function adminRegister()
+    {
+        $this->validate(request(), [
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+        
+        $user = User::create(request(['name', 'email', 'password']));
+        $user->assignRole('admin');
+       // Auth::login($user);
+        return redirect()->to('/adminlogin');
+    
+    }
 }

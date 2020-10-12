@@ -66,13 +66,16 @@ Route::get('/menu_types', 'MenuTypeController@index');
 
 Route::get('users/registeration', 'Auth\RegisterController@registerationForm');
 Route::post('users/register', 'Auth\RegisterController@userRegister');
-
 Route::get('users/login', 'Auth\LoginController@create');
 Route::post('users/login', 'Auth\LoginController@store');
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
-
 Route::patch('users/update/{id}','UserController@update')->name('users.update');
 Route::get('users/editAccount/{id}', 'UserController@edit')->name('users.edit');
+
+Route::get('registeration', 'Auth\RegisterController@adminRegisterationForm')->name('registeration');
+Route::post('admin/register', 'Auth\RegisterController@adminRegister');
+Route::get('adminlogin', 'Auth\LoginController@adminlogin')->name('loginForm');
+Route::post('admin/login', 'Auth\LoginController@adminstore');
 
 Route::get('/login-check','CheckoutController@login_check')->name('login-check');
 Route::post('/customer_registration','CheckoutController@customer_registration')->name('customer_registration');
@@ -111,7 +114,7 @@ Route::get('/all-message','ContactController@all_message');
 Route::get('/unactive_contact/{contact_id}','ContactController@unactive_contact')->name('unactive_contact');
 Route::get('/active_contact/{contact_id}','ContactController@active_contact')->name('active_contact');
 Route::get('/view-message/{contact_id}','ContactController@view_message')->name('view_message');
-Route::get('/delete-contact/{contact_id}','ContactController@delete_messaage')->name('delete_contact');
+Route::get('/delete-contact/{contact_id}','ContactController@delete_message')->name('delete_contact');
 Route::post('/ok-message/{contact_id}','ContactController@ok_message')->name('ok_message');
 Route::get('/home', 'HomeController@index')->name('home');
 

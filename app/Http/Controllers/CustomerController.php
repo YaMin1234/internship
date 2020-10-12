@@ -7,13 +7,14 @@ use App\Customer;
 use App\Restaurant;
 use App\Menu_Type;
 use App\Menu;
-
+use Illuminate\Contracts\Session\Session;
 
 class CustomerController extends Controller
 {
   
    public function index()
    {
+      
         $restaurants = Restaurant::all();
         return view('foodDelivery.index',compact('restaurants'));          
    }

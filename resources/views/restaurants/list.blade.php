@@ -17,7 +17,7 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
    
@@ -31,6 +31,12 @@
     #nav{
         height: 15px;
     }
+  main{
+      padding-left:10px;
+      padding-right: 10px;
+      
+  }
+  .top-buffer { margin-top:20px; }
 
 </style>
 <body>
@@ -38,7 +44,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container" id="nav">
                 <img src="{{ URL::asset('/photos/'. 'logo3.jpg') }}" alt="Avatar" class="avatar1">
-                <a class="navbar-brand" href="{{ url('/') }}" style="color:pink">
+                <a class="navbar-brand" href="{{ url('/') }}" style="color:#EF895D">
                     Food Delivery
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -51,7 +57,7 @@
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
                             @auth
-                        <a class="nav-link text-success" href="{{route('users.edit',Auth::user()->id)}}">
+                        <a class="nav-link" style="color:#EF895D" href="{{route('users.edit',Auth::user()->id)}}">
                             Update Profile
                          </a>
                          @endauth
@@ -62,11 +68,11 @@
                                 <button class="btn btn-succress dropdown-toggle" type="button" data-toggle="dropdown">Restaurant
                                 <span class="caret"></span></button>
                                 <ul class="dropdown-menu">
-                                  <li><a class="nav-link text-success"
+                                  <li><a class="nav-link" style="color:#EF895D"
                                     href="{{route('restaurants.create')}}">Create Restaurant </a></li>
-                                  <li><a class="nav-link text-success"
+                                  <li><a class="nav-link" style="color:#EF895D"
                                     href="{{route('resaturants.trashed')}}">Restore Restaurants</a></li>
-                                  <li><a class="nav-link text-success"
+                                  <li><a class="nav-link" style="color:#EF895D"
                                     href="{{route('restaurants')}}">Restaurants</a></li>
                                 </ul>
                               </div>
@@ -74,19 +80,19 @@
                         </li>
                         <li class="nav-item">
                                 @auth
-                                <a class="nav-link text-success"
+                                <a class="nav-link" style="color:#EF895D"
                                 href="/menu_types">Menu Types</a>
                                 @endauth
                            </li>
                         <li class="nav-item">
                             @auth
-                            <a class="nav-link text-success"
+                            <a class="nav-link" style="color:#EF895D"
                             href="/manage-order">Manage Orders</a>
                             @endauth
                        </li>
                        <li class="nav-item">
                         @auth
-                        <a class="nav-link text-success"
+                        <a class="nav-link" style="color:#EF895D"
                         href="/all-message">Messages</a>
                         @endauth
                    </li>
@@ -129,44 +135,36 @@
             </div>
         </nav>
 
-        <main>
-             <h3>All Restaurants</h3>
-            
-                <div class="row">
-                    <div class="card-deck">
+        <main  class="py-4">    
+                <div class="row  top-buffer"  >
+                    <div class="card-group">
                      @forelse ($restaurants as $restaurant)
                      <div class="col-sm-3">
-                            <div class="card" style="width: 18rem;">
-                                <img class="card-img-top" src="{{ URL::asset('/photos/'. $restaurant->photos) }}" alt="Card image cap" >
+                            <div class="card">
+                                <img class="card-img-top" src="{{ URL::asset('/photos/'. $restaurant->photos) }}" alt="Card image cap" height="150">
                                    <div class="card-body">
-                                    <h5 class="card-title"><a href="{{route('restaurants.show', $restaurant->id)}}" style="text-decoration: none"> {{$restaurant->name}}</a></h5>
-                                     <p class="card-text"> 
+                                       <h5 class="card-title"><a href="{{route('restaurants.show', $restaurant->id)}}" style="text-decoration: none;color:#EF895D;"> {{$restaurant->name}}</a></h5>
+                                          {{-- <p class="card-text"> 
                                         {{-- by<b>{{$restaurant->user->name}}</b> --}}
-                                        {{$restaurant->created_at->diffForHumans() }}</p>
-                                     <p class="card-text">
-                                            Available Food category:{{$restaurant->food_category->name}}</p>
+                                            {{-- {{$restaurant->created_at->diffForHumans() }}</p>
+                                          <p class="card-text">
+                                            Available Food category:{{$restaurant->food_category->name}}</p> --}}
                                     </div>
                                         <div class="card-footer">
                                             <div class="row" style="padding-left:30px;">
-                                               <a href="{{route('restaurants.edit', $restaurant->id)}}" ><i class="fa fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                               <a href="{{route('restaurants.edit', $restaurant->id)}}" ><i class="fa fa-edit" style="color:#EF895D"></i></a>&nbsp;&nbsp;&nbsp;
                                                
-                                                <a href="{{route('resaturants.hdelete', $restaurant->id)}}" ><i class="fa fa-trash" aria-hidden="true"></i></a> 
-                                                
-
-                                                {{-- <form action="{{route('resaturants.hdelete', $restaurant->id)}}" method="POST">
-                                                    @csrf 
-                                                     <button class="btn btn-danger" onclick='return confirm("Are you sure to delete")' style="float: right">Delete</button>
-                                                
-                                                </form> --}}
-                                            </div>
+                                                <a href="{{route('resaturants.hdelete', $restaurant->id)}}" ><i class="fa fa-trash" aria-hidden="true" style="color:#EF895D"></i></a> 
+                                            </div> 
                                         </div>
                                     </div>
-                        
-                     </div>  
-                @empty    
-                @endforelse 
+                     </div>
+                     @empty    
+                     @endforelse
+                      
+               
                  </div> 
-            
+           
        </div>
         
               

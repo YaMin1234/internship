@@ -166,16 +166,19 @@ class CheckoutController extends Controller
 
   public function view_order($order_id)
   {
-      $order_by_id=DB::table('orders')
+      $orderById=DB::table('orders')
               ->join('customers','orders.customer_id','=','customers.customer_id')
               ->join('order_details','orders.order_id','=','order_details.order_id')
               ->join('shippings','orders.shipping_id','=','shippings.shipping_id')
               ->select('orders.*','order_details.*','shippings.*','customers.*')
               ->where('orders.order_id',$order_id)
-              ->get();
-
-       
-       return view('restaurants.viewOrder',compact('order_by_id'));
+              ->first();
+        $orderDetails = DB::table('order_details')
+                        ->select('order_details.*')
+                        ->where('order_details.order_id',$order_id)
+                        ->get();
+                      
+       return view('restaurants.viewOrder',compact('orderById','orderDetails'));
 
   }
 

@@ -16,6 +16,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -37,7 +38,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container" id="nav">
                 <img src="{{ URL::asset('/photos/'. 'logo3.jpg') }}" alt="Avatar" class="avatar1">
-                <a class="navbar-brand" href="{{ url('/') }}" style="color:pink">
+                <a class="navbar-brand" href="{{ url('/') }}" style="color:#EF895D">
                     Food Delivery
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -50,7 +51,7 @@
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
                             @auth
-                        <a class="nav-link text-success" href="{{route('users.edit',Auth::user()->id)}}">
+                        <a class="nav-link" style="color:#EF895D" href="{{route('users.edit',Auth::user()->id)}}">
                             Update Profile
                          </a>
                          @endauth
@@ -58,34 +59,34 @@
                         <li class="nav-item">
                             @auth
                             <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Restaurant
+                                <button class="btn btn-succress dropdown-toggle" type="button" data-toggle="dropdown">Restaurant
                                 <span class="caret"></span></button>
                                 <ul class="dropdown-menu">
-                                  <li><a class="nav-link text-success"
+                                  <li><a class="nav-link" style="color:#EF895D"
                                     href="{{route('restaurants.create')}}">Create Restaurant </a></li>
-                                  <li><a class="nav-link text-success"
-                                    href="{{route('restaurants.trashed')}}">Restore Restaurants</a></li>
-                                  <li><a class="nav-link text-success"
-                                    href="{{route('/restaurants')}}">Restaurants</a></li>
+                                  <li><a class="nav-link" style="color:#EF895D"
+                                    href="{{route('resaturants.trashed')}}">Restore Restaurants</a></li>
+                                  <li><a class="nav-link" style="color:#EF895D"
+                                    href="{{route('restaurants')}}">Restaurants</a></li>
                                 </ul>
                               </div>
                             @endauth
                         </li>
                         <li class="nav-item">
                                 @auth
-                                <a class="nav-link text-success"
+                                <a class="nav-link" style="color:#EF895D"
                                 href="/menu_types">Menu Types</a>
                                 @endauth
                            </li>
                         <li class="nav-item">
                             @auth
-                            <a class="nav-link text-success"
+                            <a class="nav-link" style="color:#EF895D"
                             href="/manage-order">Manage Orders</a>
                             @endauth
                        </li>
                        <li class="nav-item">
                         @auth
-                        <a class="nav-link text-success"
+                        <a class="nav-link" style="color:#EF895D"
                         href="/all-message">Messages</a>
                         @endauth
                    </li>
@@ -127,7 +128,8 @@
                 </div>
             </div>
         </nav>
-        <main>
+
+        <main> 
 	<div class="row-fluid sortable">
 				<div class="box span6">
 					<div class="box-header">
@@ -143,10 +145,10 @@
 							  </thead>   
 							  <tbody>
 								<tr>
-									 @foreach($order_by_id as $v_order)
-									 @endforeach 
-							         <td>{{$v_order->customer_name}}</td>
-							         <td>{{$v_order->mobile_number}}</td> 
+									
+									
+							         <td>{{$orderById->customer_name}}</td>
+							         <td>{{$orderById->mobile_number}}</td> 
 							                                  
 								</tr>                                
 							  </tbody>
@@ -170,12 +172,11 @@
 							  </thead>   
 							  <tbody>
 								<tr>
-									@foreach($order_by_id as $v_order)
-									 @endforeach
-								      <td>{{$v_order->shipping_name}}</td>
-								      <td>{{$v_order->shipping_address}}</td>                   
-								      <td>{{$v_order->shipping_mobile_number}}</td>
-								      <td>{{$v_order->shipping_email}}</td>   
+									
+								      <td>{{$orderById->shipping_name}}</td>
+								      <td>{{$orderById->shipping_address}}</td>                   
+								      <td>{{$orderById->shipping_mobile_number}}</td>
+								      <td>{{$orderById->shipping_email}}</td>    
 								     
 								</tr>
 							                                 
@@ -202,24 +203,26 @@
 						  </thead> 
 
 						  <tbody>
-						 @foreach($order_by_id as $order)							  	 
+                                
+                            @foreach($orderDetails as $order)
 							<tr>
-						
+						    
 				             <td>{{$order->order_id}}</td> 
 				             <td>{{$order->menu_name}}</td> 
 				             <td>{{$order->menu_price}}</td>
 				             <td>{{$order->menu_sales_quantity}}</td> 
-                             <td>{{$order->menu_price*$order->menu_sales_quantity}}</td>
+                             <td>{{$order->menu_price*$order->menu_sales_quantity}}</td> 
 				                
                               
-							</tr>
-						@endforeach
+                            </tr>
+                            @endforeach
+					
 							
 						  </tbody>
                           <tfoot>
                           	<tr>
                           	<td colspan="4">Total with vat: </td>
-                          	<td><strong>={{$order->order_total}}  MMK</strong></td>
+                          	<td><strong>={{$orderById->order_total}}  MMK</strong></td> 
                           	</tr>
                           </tfoot>
 				               

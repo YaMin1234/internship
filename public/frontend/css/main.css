@@ -352,7 +352,7 @@ ul.sub-menu {
 
 .footer-top .container {
   border-bottom: 1px solid #E0E0DA;
-  padding-bottom: 20px;
+ 
 }
 
 .companyinfo {
@@ -554,6 +554,7 @@ ul.sub-menu {
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
   margin-left: 15px;
+  font-size: medium;
 }
 
 .footer-bottom p span a {
@@ -1427,8 +1428,8 @@ h2.title {
 
 #form {
   display: block;
-  margin-bottom: 185px;
-  margin-top: 185px;
+  margin-bottom: 18px;
+  margin-top: 10px;
   overflow: hidden;
 }
 

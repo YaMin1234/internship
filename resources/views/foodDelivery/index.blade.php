@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description" content="">
     <meta name="author" content="">
+    
     <title>Home | FOOD-ORDERING</title>
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    
-    
     <link href="{{asset('frontend/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('frontend/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{asset('frontend/css/prettyPhoto.css')}}" rel="stylesheet">
@@ -18,20 +16,19 @@
     <link href="{{asset('frontend/css/animate.css')}}" rel="stylesheet">
     <link href="{{asset('frontend/css/main.css')}}" rel="stylesheet">
     <link href="{{asset('frontend/css/responsive.css')}}" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
-    <script src="js/respond.min.js"></script>
-    <![endif]-->       
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="shortcut icon" href="images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{URL::to('frontend/images/ico/apple-touch-icon-144-precomposed.png')}}">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{URL::to('frontend/images/ico/apple-touch-icon-114-precomposed.png')}}">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{URL::to('frontend/images/ico/apple-touch-icon-72-precomposed.png')}}">
     <link rel="apple-touch-icon-precomposed" href="{{URL::to('frontend/images/ico/apple-touch-icon-57-precomposed.png')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head><!--/head-->
+</head>
 
 <style>
+    main{
+        background-color: #ffffff;
+    }
 
         .paymentWrap {
     padding: 50px;
@@ -96,15 +93,36 @@
     border-color: #4cd264;
     outline: none !important;
 }
-.sub_menu{
-    display: inline-block;
+#nav a:hover{
+    color:orange;
 }
+
+#category a:hover{
+    color:orange;
+}
+
+#category a:visited{
+   background-color:red;
+}
+
+
+#restaurantImg {
+  
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#restaurantImg:hover {opacity: 0.7;
+                        width:180px;
+                       }
+ 
+
     </style>
 
 
 <body>
     <header id="header">
-        <div class="header_top">
+        {{-- <div class="header_top">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-6">
@@ -112,11 +130,11 @@
                             <ul class="nav nav-pills">
                                 {{-- <li><a href="#"><i class="fa fa-phone"></i> +8801726-959864</a></li>
                                 <li><a href="#"><i class="fa fa-envelope"></i> princemahamud687@gmail.com</a></li> --}}
-                            </ul>
+                            {{-- </ul>
                         </div>
                     </div>
-                    {{-- <div class="col-sm-6">
-                        <div class="social-icons pull-right">
+                    <div class="col-sm-6">
+                        <div class="social-icons pull-right" style="display: inline;">
                             <ul class="nav navbar-nav">
                                 <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="#"><i class="fa fa-twitter"></i></a></li>
@@ -125,23 +143,24 @@
                                 <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
                             </ul>
                         </div>
-                    </div> --}}
+                    </div> 
                 </div>
             </div>
-        </div>
+        </div> --}} 
         
-        <div class="header-middle">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="logo pull-left">
-                            <a href="{{URL::to('/')}}"><img src="{{URL::to('frontend/images/home/logo.png')}}" alt="" /></a>
-                        </div>
+        <div class=" bg-light" >
+            <div class="container" >
+                <div class="row" style="height:50px;">
+                    <div class="col-sm-4 ">
+                        {{-- <div class="logo pull-left">
+                            {{-- <a href="{{URL::to('/')}}"><img src="{{URL::to('frontend/images/home/logo.png')}}" alt="" /></a> --}}
+                      {{-- </div>  --}}
                         
                     </div>
-                    <div class="col-sm-8">
-                        <div class="shop-menu pull-right">
-                            <ul class="nav navbar-nav">
+                    <div class="col-sm-8 ">
+                        <nav class="navbar navbar-expand-lg navbar-light " style="font-size:15px;float:right;">
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto" id="nav">
                               
 
                         <?php $customer_id=session()->get('customer_id');
@@ -149,25 +168,26 @@
                         ?>
 
                      <?php if($customer_id ==NULL && $shipping_id==NULL){?>
-                            <li><a href="{{route('login-check')}}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+                            <li class="nav-item"><a href="{{route('login-check')}}" class="nav-link"><i class="fa fa-crosshairs"></i> Checkout</a></li>&nbsp;&nbsp;&nbsp;&nbsp;
                         <?php }if($customer_id !=NULL && $shipping_id==NULL){?>
-                              <li><a href="{{route('checkout')}}">Checkout</a></li>
+                            <li class="nav-item"><a href="{{route('checkout')}}" class="nav-link">Checkout</a></li>&nbsp;&nbsp;&nbsp;&nbsp;
                         <?php }if($customer_id !=NULL && $shipping_id!=NULL){?>
-                               <li><a href="{{route('payment')}}">Checkout</a></li>
+                            <li class="nav-item"><a href="{{route('payment')}}" class="nav-link">Checkout</a></li>&nbsp;&nbsp;&nbsp;&nbsp;
                         <?php }else{}?>
 
 
-                                <li><a href="{{ route('foodDelivery.cart') }}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                             <li class="nav-item"><a href="{{ route('foodDelivery.cart') }}" class="nav-link"> <i class="fa fa-shopping-cart"></i> Cart</a></li>&nbsp;&nbsp;&nbsp;&nbsp;
                             <?php if($customer_id != NULL){?>
-                                <li><a href="{{route('customer_logout')}}"><i class="fa fa-lock"></i> Logout</a></li>
+                              <li class="nav-item"><a href="{{route('customer_logout')}}" class="nav-link"><i class="fa fa-lock"></i> Logout</a></li>&nbsp;&nbsp;&nbsp;&nbsp;
                           <?php  }else{?>
                             
-                                <li><a href="{{route('login-check')}}"><i class="fa fa-lock"></i> Login</a></li>
+                            <li class="nav-item"><a href="{{route('login-check')}}" class="nav-link"><i class="fa fa-lock"></i> Login</a></li>
                           <?php } ?>
 
                            
                             </ul>
                         </div>
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -189,7 +209,7 @@
                             <ul class="nav navbar-nav collapse navbar-collapse">
                                 <li><a href="{{route('foodDelivery.index')}}" class="active">Home</a></li>
                                 <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
+                                    <ul role="menu" class="sub-menu" style="text-decoration: none;">
                                      
                                        <?php $customer_id=Session::get('customer_id'); ?>
                                           <?php if($customer_id != NULL){?>
@@ -224,7 +244,7 @@
                            $all_published_category=DB::table('food_categories')->get();
                                                         
                             foreach($all_published_category as $category){?>                   
-                             <div class="panel panel-default">
+                             <div class="panel panel-default" id="category">
                                 <div class="panel-heading">
                                 <h4 class="panel-title"><a href="{{route('foodDelivery.category',$category->id)}}">{{$category->name}}</a></h4>
                                 </div>
@@ -242,9 +262,9 @@
                             </div>
                         </div><!--/price-range-->
                         
-                        <div class="shipping text-center"><!--shipping-->
+                        {{-- <div class="shipping text-center">
                             <img src="images/home/shipping.jpg" alt="" />
-                        </div><!--/shipping-->
+                        </div><!--/shipping--> --}}
                     
                     </div>
                 </div>
@@ -261,14 +281,12 @@
                 @forelse ($restaurants as $restaurant)
                 <div class="col-sm-3">
                        <div class="card">
-                           <img class="card-img-top" src="{{ URL::asset('/photos/'. $restaurant->photos) }}" alt="Card image cap" >
+                       
+                           <img class="card-img-top" src="{{ URL::asset('/photos/'. $restaurant->photos) }}" id="restaurantImg" alt="Card image cap" height="150">
+                           
                             <div class="card-body">
-                               <h5 class="card-title"><a href="{{route('foodDelivery.show', $restaurant->id)}}" style="text-decoration: none"> {{$restaurant->name}}</a></h5>
-                                <p class="card-text"> 
-                                   {{-- by<b>{{$restaurant->user->name}}</b> --}}
-                                   {{$restaurant->created_at->diffForHumans() }}</p>
-                                <p class="card-text">
-                                       Available Food category:{{$restaurant->food_category->name}}</p>
+                               <h5 class="card-title"><a href="{{route('foodDelivery.show', $restaurant->id)}}" style="text-decoration: none;color:orange;"> {{$restaurant->name}}</a></h5>
+                               
                            </div>
                                </div>
                    
@@ -287,102 +305,99 @@
 </section>
 
 <footer id="footer"><!--Footer-->
-<div class="footer-top">
-<div class="container">
-    <div class="row">
-        <div class="col-sm-2">
-            <div class="companyinfo">
-                <h2><span>Food</span>-Ordering</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,sed do eiusmod tempor</p>
-            </div>
-        </div>
-        
 
-<div class="footer-widget">
-<div class="container">
-    <div class="row">
-        <div class="col-sm-2">
-            <div class="single-widget">
-                <h2>Service</h2>
-                <ul class="nav nav-pills nav-stacked">
-                    <li><a href="#">Online Help</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">Order Status</a></li>
-                    <li><a href="#">Change Location</a></li>
-                    <li><a href="#">FAQ’s</a></li>
-                </ul>
+    
+    <div class="footer-widget">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="companyinfo">
+                    <h2><span>Food</span>-Ordering</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,sed do eiusmod tempor</p>
+                </div>
             </div>
-        </div>
-        <div class="col-sm-2">
-            <div class="single-widget">
-                <h2>Quock Food</h2>
-                <ul class="nav nav-pills nav-stacked">
-                    <li><a href="#">APPETIZER</a></li>
-                    <li><a href="#">BEEF</a></li>
-                    <li><a href="#">BURGER & SANDWICH</a></li>
-                    <li><a href="#">CHICKEN</a></li>
-                    <li><a href="#">PRAWN</a></li>
-                </ul>
+            <div class="col-sm-2">
+                <div class="single-widget">
+                    <h2>Service</h2>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a href="#">Online Help</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Order Status</a></li>
+                        <li><a href="#">Change Location</a></li>
+                        <li><a href="#">FAQ’s</a></li>
+                    </ul>
+                </div>
             </div>
-        </div>
-        <div class="col-sm-2">
-            <div class="single-widget">
-                <h2>Policies</h2>
-                <ul class="nav nav-pills nav-stacked">
-                    <li><a href="#">Terms of Use</a></li>
-                    <li><a href="#">Privecy Policy</a></li>
-                    <li><a href="#">Refund Policy</a></li>
-                    <li><a href="#">Billing System</a></li>
-                    <li><a href="#">Ticket System</a></li>
-                </ul>
+            <div class="col-sm-2">
+                <div class="single-widget">
+                    <h2>Quock Food</h2>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a href="#">APPETIZER</a></li>
+                        <li><a href="#">BEEF</a></li>
+                        <li><a href="#">BURGER & SANDWICH</a></li>
+                        <li><a href="#">CHICKEN</a></li>
+                        <li><a href="#">PRAWN</a></li>
+                    </ul>
+                </div>
             </div>
-        </div>
-        <div class="col-sm-2">
-            <div class="single-widget">
-                <h2>About Food-Order</h2>
-                <ul class="nav nav-pills nav-stacked">
-                    <li><a href="#">Company Information</a></li>
-                    <li><a href="#">Careers</a></li>
-                    <li><a href="#">Store Location</a></li>
-                    <li><a href="#">Affillate Program</a></li>
-                    <li><a href="#">Copyright</a></li>
-                </ul>
+            <div class="col-sm-2">
+                <div class="single-widget">
+                    <h2>Policies</h2>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a href="#">Terms of Use</a></li>
+                        <li><a href="#">Privecy Policy</a></li>
+                        <li><a href="#">Refund Policy</a></li>
+                        <li><a href="#">Billing System</a></li>
+                        <li><a href="#">Ticket System</a></li>
+                    </ul>
+                </div>
             </div>
-        </div>
-        <div class="col-sm-3 col-sm-offset-1">
-            <div class="single-widget">
-                <h2>About Food-Order</h2>
-                <form action="#" class="searchform">
-                    <input type="text" placeholder="Your email address" />
-                    <button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
-                    <p>Get the most recent updates from <br />our site and be updated your self...</p>
-                </form>
+            <div class="col-sm-2">
+                <div class="single-widget">
+                    <h2>About Food-Order</h2>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a href="#">Company Information</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Store Location</a></li>
+                        <li><a href="#">Affillate Program</a></li>
+                        <li><a href="#">Copyright</a></li>
+                    </ul>
+                </div>
             </div>
+            <div class="col-sm-3 col-sm-offset-1">
+                {{-- <div class="single-widget">
+                    <h2>About Food-Order</h2>
+                    <form action="#" class="searchform">
+                        <input type="text" placeholder="Your email address" />
+                        <button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
+                        <p>Get the most recent updates from <br />our site and be updated your self...</p>
+                    </form>
+                </div> --}}
+            </div>
+            
         </div>
-        
     </div>
-</div>
-</div>
-
-<div class="footer-bottom">
-<div class="container">
-    <div class="row">
-        <p class="pull-left">Copyright © 2020 FOOD-ORDERING Inc. All rights reserved.</p>
-     
     </div>
-</div>
-</div>
-
-</footer><!--/Footer-->
-
-
-
-<script src="{{asset('frontend/js/jquery.js')}}"></script>
-<script src="{{asset('frontend/js/bootstrap.min.js')}}"></script>
-<script src="{{asset('frontend/js/jquery.scrollUp.min.js')}}"></script>
-<script src="{{asset('frontend/js/price-range.js')}}"></script>
-<script src="{{asset('frontend/js/jquery.prettyPhoto.j')}}s"></script>
-<script src="{{asset('frontend/js/main.js')}}"></script>
-
-</body>
-</html>
+    
+    <div class="footer-bottom">
+    <div class="container">
+        <div class="row">
+            <p class="pull-left" >Copyright © 2020 FOOD-ORDERING Inc. All rights reserved.</p>
+         
+        </div>
+    </div>
+    </div>
+    
+    </footer><!--/Footer-->
+    
+    
+    
+    <script src="{{asset('frontend/js/jquery.js')}}"></script>
+    <script src="{{asset('frontend/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('frontend/js/jquery.scrollUp.min.js')}}"></script>
+    <script src="{{asset('frontend/js/price-range.js')}}"></script>
+    <script src="{{asset('frontend/js/jquery.prettyPhoto.j')}}s"></script>
+    <script src="{{asset('frontend/js/main.js')}}"></script>
+    
+    </body>
+    </html>

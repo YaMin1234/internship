@@ -53,15 +53,56 @@
 .container1 .btn:hover {
  font-size: 13px;
 }
+.menuType:hover{
+    color:orange;
+}
+.menuName:hover{
+    color:orange;
+}
+#overlay {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 2000%;
+background: #000;
+opacity: 0.2;
+display: none;
+}
+#dialog {
+position: absolute;
+top: 70%;
+left: 35%;
+width: 30%;
+border: 4px solid #ccc;
+background: #fff;
+display: none;
+}
+#dialog h2 {
+margin: 0;
+padding: 8px;
+background: #ddd;
+font-size: 17px;
+}
+#dialog h2 span {
+display: block;
+float: right;
+padding: 0 5px;
+color: #c22;
+cursor: pointer;
+}
+#dialog form { 
+padding: 20px;
+}
   </style>
 <body>
  
-<div class="container">
+<div class=" bg-light" style="height:10px;">
  
     <div class="row">
         <div class="col-lg-12 col-sm-12 col-12 main-section">
             <div class="dropdown">
-                <button type="button" class="btn btn-info" data-toggle="dropdown">
+                <button type="button" class="btn btn-warning" data-toggle="dropdown">
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart <span class="badge badge-pill badge-danger">{{ count((array) session('cart')) }}</span>
                 </button>
                 <div class="dropdown-menu">
@@ -95,7 +136,7 @@
                     @endif
                     <div class="row">
                         <div class="col-lg-12 col-sm-12 col-12 text-center checkout">
-                           <a href="{{route('foodDelivery.cart')}}" class="btn btn-primary btn-block">View all</a>
+                           <a href="{{route('foodDelivery.cart')}}" class="btn btn-warning btn-block">View all</a>
                         </div>
                     </div>
                 </div>
@@ -103,17 +144,22 @@
         </div>
     </div>
 </div>
+
  
 <div class="container page">
  
-    <main class="py-4">
+    
         <div class="card">
             <div class="card-img-top">
-            <img  src="{{ URL::asset('/photos/'. $restaurant->photos) }}" alt="Card image cap">
+            <img  src="{{ URL::asset('/photos/'. $restaurant->photos) }}" alt="Card image cap" width="1110">
             </div>
             <div class="card-body">
-                <h5 class="card-title">{{$restaurant->name}}</h5>
-                <p class="card-text"> <b>Address:</b>
+                <h5 class="card-title" style="cursor:pointer;" onclick="showDialog()">{{$restaurant->name}}</h5>
+                <div id="overlay" onClick="hideDialog()"></div>
+                <div id="dialog">
+                    <h2>{{$restaurant->name}}<span onClick="hideDialog()">&times;</span></h2>
+                    <form>
+                    <p class="card-text"> <b>Address:</b>
                     {{$restaurant->address}}<br>
         
                     <b>Township:</b>{{$restaurant->township->name}}<br>
@@ -124,9 +170,14 @@
                     
                             @foreach ($meal_types as $meal_type)
                                 {{$meal_type->name}}
+                                @if( !$loop->last)
+                                ,
+                            @endif
                             @endforeach
                     </i>
                </p>
+                    </form>
+                </div>
             </div>
           </div>
           <div>
@@ -150,14 +201,14 @@
                        
                           <div class="col-md-6 col-md-offset-4">
                             <div class="shadow" >
-                                <a href="{{ route('foodDelivery.addToCart',$menu->id) }}" style="font-size: 15px;padding-left:20px;font-weight:bold;">{{$menu->name}}</a> 
+                                <a href="{{ route('foodDelivery.addToCart',$menu->id) }}" style="font-size: 15px;padding-left:20px;font-weight:bold;text-decoration:none;" class="menuName">{{$menu->name}}</a> 
                                     {{-- <b style="font-size: 13px;padding-left:20px;">{{$menu->name}}</b> --}}
                                     <p style="font-size: 11px;padding-left:20px;">1pcs</p>
                                     <p style="font-size: 12px;padding-left:20px;">MMK {{$menu->price}}</p>
                                
                             <div class="container1">
                                 <img  src="{{ URL::asset('/photos/'. $menu->photos) }}" alt="Card image cap" > 
-                                <a href="{{ route('foodDelivery.addToCart',$menu->id) }}" class="btn btn-info text-center btn" role="button">+</a> 
+                                <a href="{{ route('foodDelivery.addToCart',$menu->id) }}" class="btn btn-warning text-center btn" role="button">+</a> 
                             </div>
                             
         
@@ -172,10 +223,19 @@
           @empty
           @endforelse
           </ul>  
-      </main>
+      
     </div>
  
-    @yield('scripts')
+    <script>
+        function showDialog() {
+          document.getElementById("overlay").style.display = "block";
+          document.getElementById("dialog").style.display = "block";
+        }
+        function hideDialog() {
+          document.getElementById("overlay").style.display = "none";
+          document.getElementById("dialog").style.display = "none";
+        }
+        </script>
      
     </body>
     </html>

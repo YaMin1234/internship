@@ -19,7 +19,6 @@ class MenuTypeController extends Controller
     {
         $id = Auth::id();
         $menu_types = Menu_type::where("user_id",$id)->get();
-      
         return view("menu_types.index",compact('menu_types'));
         
     }

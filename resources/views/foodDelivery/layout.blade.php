@@ -17,12 +17,12 @@
 </head>
 <body>
  
-<div class="container">
+<div class=" bg-light" style="height:45px;">
  
     <div class="row">
-        <div class="col-lg-12 col-sm-12 col-12 main-section">
+        <div class="col-lg-12 col-sm-12 col-12">
             <div class="dropdown">
-                <button type="button" class="btn btn-info" data-toggle="dropdown">
+                <button type="button" class="btn btn-warning" data-toggle="dropdown">
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart <span class="badge badge-pill badge-danger">{{ count((array) session('cart')) }}</span>
                 </button>
                 <div class="dropdown-menu">
@@ -56,7 +56,7 @@
                     @endif
                     <div class="row">
                         <div class="col-lg-12 col-sm-12 col-12 text-center checkout">
-                            <a href="{{ route('foodDelivery.cart') }}" class="btn btn-primary btn-block">View all</a>
+                            <a href="{{ route('foodDelivery.cart') }}" class="btn btn-warning btn-block">View all</a>
                         </div>
                     </div>
                 </div>
