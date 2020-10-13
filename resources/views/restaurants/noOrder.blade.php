@@ -31,6 +31,14 @@
     #nav{
         height: 15px;
     }
+.shadow
+   {
+    padding:50px;
+    box-shadow:5px 10px 18px #888888;
+    width:500px;
+    background-color:white;
+   
+   }
 
 </style>
 <body>
@@ -62,7 +70,7 @@
                                 <button class="btn btn-succress dropdown-toggle" type="button" data-toggle="dropdown">Restaurant
                                 <span class="caret"></span></button>
                                 <ul class="dropdown-menu">
-                                  <li><a class="nav-link" style="color:#EF895D"
+                                  <li><a class="nav-link " style="color:#EF895D"
                                     href="{{route('restaurants.create')}}">Create Restaurant </a></li>
                                   <li><a class="nav-link" style="color:#EF895D"
                                     href="{{route('resaturants.trashed')}}">Restore Restaurants</a></li>
@@ -129,102 +137,20 @@
             </div>
         </nav>
 
-        <main> 
-
-          <p class="alert-success">
-			<?php
-			$message=session()->get('message');
-			if($message)
-			{
-				echo $message;
-				session()->put('message',null);
-
-			}
-           ?>
-        </p>
-       
-		<div class="row-fluid sortable">		
-			<div class="box span12">
-				<div class="box-header" data-original-title>
-					<h2><i class="halflings-icon user"></i><span class="break"></span>Orders</h2>
-				</div>
-				<div class="box-content">
-					<table class="table table-striped table-bordered bootstrap-datatable datatable">
-					  <thead>
-						  <tr>
-							  <th>Order ID</th>
-							  <th>Customer Name</th>
-							  <th>Order Total</th>
-							  <th>Status</th>
-							  <th>Actions<br>Change View Delete Notify
-
-                              </th>
-						  </tr>
-					  </thead> 
-                 @foreach( $all_order_info as $order)
-					  <tbody>
-						<tr>
-						<td>{{ $order->order_id }}</td>
-						<td class="center">{{ $order->customer_name }}</td>
-						<td class="center">{{$order->order_total}}</td>
-                        <!-- <td class="center">{{ $order->order_status }}</td> -->
-						<td class="center">
-							@if($order->order_status==0)
-                              <span class="label label-danger">Order Confirm</span>
-							@elseif($order->order_status==1)
-                              <span class="label label-primary">Food being prepared</span>
-                             @elseif($order->order_status==2)
-                              <span class="label label-success">{{$message}}</span>
-                             @elseif($order->order_status==3)
-                              <span class="label label-info">Order finish</span>
-                             @else
-                              <span class="label label-danger">Order Cancelled</span>
-							@endif
-						</td> 
-
-
-						<td class="center">
-                            
-                            @if($order->order_status==0)
-                            &nbsp;&nbsp;&nbsp; <a class="btn btn-primary" href="{{route('prepared',$order->order_id)}}">
-								<i class="halflings-icon white thumbs-up"></i>  
-							</a>&nbsp;&nbsp;&nbsp;&nbsp;
-							
-                            @elseif($order->order_status==1)
-                            <a class="btn btn-success" href="{{route('update',$order->order_id)}}">
-								<i class="halflings-icon white thumbs-down"></i>  
-                            </a>&nbsp;&nbsp;&nbsp;&nbsp;
-                            @elseif($order->order_status==2)
-                            <a class="btn btn-info" href="{{route('finish',$order->order_id)}}">
-								<i class="halflings-icon white thumbs-down"></i>  
-                            </a>&nbsp;&nbsp;&nbsp;&nbsp;
-                        
-                            @endif
-                           
-
-							<a class="btn btn-info" href="{{route('view_order',$order->order_id)}}">
-								<i class="halflings-icon white edit"></i>  
-							</a>&nbsp;&nbsp;&nbsp;&nbsp;
-							
-
-                        <a class="btn btn-danger" href="{{route('delete_order',$order->order_id)}}" id="delete">
-								<i class="halflings-icon white trash"></i> 
-                            </a>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a class="btn btn-warning" href="{{route('send-mail',$order->order_id)}}">
-                            <i class="halflings-icon white trash"></i> 
-                        </a>
-						</td>
-						</tr>				
-					  </tbody>
-                   @endforeach
-				  </table>            
-				</div>
-			</div><!--/span-->
-		
-        </div><!--/row-->
-       
-
-    </main>
-</div>
+        <main class="py-4"> 
+           
+            <div class="container shadow">
+              <form action="{{ route('menu_types.store')}}" method="POST">
+               
+                @csrf
+                <h5 style="padding-left:80px;color:#EF895D;"> You Currently do not have any Order</h5>
+               
+              </form>
+            </div>
+        
+        </main>
+    </div>
 </body>
 </html>
+
+   

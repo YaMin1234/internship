@@ -31,6 +31,13 @@
     #nav{
         height: 15px;
     }
+    .shadow
+   {
+    box-shadow:5px 10px 18px #888888;
+    width:700px;
+    background-color:white;
+   
+   }
 
 </style>
 <body>
@@ -129,23 +136,12 @@
             </div>
         </nav>
 
-        <main> 
-<ul class="breadcrumb">
-	<li>
-		<i class="icon-home"></i>
-		<a href="index.html">Home</a>
-		<i class="icon-angle-right"></i> 
-	</li>
-	<li>
-		<i class="icon-edit"></i>
-		<a href="#">View Message</a>
-	</li>
-</ul>
-
+        <main class="py-4"> 
+          <div class="container shadow">
 <div class="row-fluid sortable">
 	<div class="box span12">
 		<div class="box-header" data-original-title>
-			<h2><i class="halflings-icon edit"></i><span class="break"></span>View Message</h2>
+      <h3 style="padding-left:200px;color:#EF895D;"><i class="halflings-icon edit"></i><span class="break"></span>View Message</h3><hr>
 		</div>
 		<div class="box-content">
 			<form class="form-horizontal" action="{{ route('ok_message',$view_message_info->contact_id) }}" method="post">
@@ -154,36 +150,37 @@
 				<div class="control-group">
 				  <label class="control-label" for="date01">First Name</label>
 				  <div class="controls">
-				<input type="text" class="input-xlarge" name="last_name" value="{{$view_message_info->first_name}}" readonly>
+				<input type="text" class="form-control col-md-4" name="last_name" value="{{$view_message_info->first_name}}" readonly>
 				  </div>
 				</div>
 
 				<div class="control-group">
 				  <label class="control-label" for="date01">Last Name</label>
 				  <div class="controls">
-				<input type="text" class="input-xlarge" name="last_name" value="{{$view_message_info->last_name}}" readonly>
+				<input type="text"  class="form-control col-md-4" name="last_name" value="{{$view_message_info->last_name}}" readonly>
 				  </div>
 				</div>
 
 				<div class="control-group">
 				  <label class="control-label" for="date01">Email</label>
 				  <div class="controls">
-				<input type="text" class="input-xlarge" name="email" value="{{$view_message_info->email}}" readonly>
+				<input type="text"  class="form-control col-md-4" name="email" value="{{$view_message_info->email}}" readonly>
 				  </div>
 				</div>
        
        		<div class="control-group hidden-phone">
 				  <label class="control-label" for="textarea2">Body</label>
 				  <div class="controls">
-					<textarea class="cleditor" name="product_short_description" rows="3" readonly>
+					<textarea class="form-control col-md-4" name="product_short_description" rows="3" readonly>
 						{{$view_message_info->body}}
 					</textarea>
 				  </div>
-				</div>
+				</div><br>
 				
-				<div class="form-actions">
-				  <button type="submit" class="btn btn-primary">OK</button>		 
-				</div>
+        <div style="padding-left:200px;">
+          <button class="btn btn-outline-info col-md-4">OK</button>
+      </div>
+      <br>
 			  </fieldset>
 			</form>   
 
@@ -191,6 +188,7 @@
 	</div><!--/span-->
 
 </div><!--/row-->
+          </div>
         </main>
     </div>
 </body>

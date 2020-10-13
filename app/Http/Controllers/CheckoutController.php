@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Http\Requests;
+use App\Menu;
 use App\Order;
+use App\OrderDetail;
+use App\Restaurant;
 use App\Shipping;
 use Illuminate\Contracts\Session\Session as SessionSession;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB as FacadesDB;
 use Illuminate\Support\Facades\Input;
 use Session;
@@ -135,12 +139,12 @@ class CheckoutController extends Controller
 
      if ($payment_gateway=='cash') 
      {
-        session()->forget('cart');
+       
           return view('pages.handcash');
          
         
      }elseif ($payment_gateway=='card') {
-      session()->forget('cart');
+    
       return view('pages.handcash');  
       
      }  
@@ -152,14 +156,31 @@ class CheckoutController extends Controller
 
     public function manage_order()
     {
+      $id=Auth::id();
+      
+      $user_id =DB::table('menus')
+                      ->join('order_details','menus.id','=','order_details.menu_id')
+                      ->join('restaurants','restaurants.id',"=",'menus.restaurant_id')
+                      ->select('restaurants.user_id')
+                      ->first();
      
+
+              
+        
       $all_order_info=DB::table('orders')
                      ->join('customers','orders.customer_id','=','customers.customer_id')
                      ->select('orders.*','customers.customer_name')
                      ->get();
-
-      
+   
+   
+     if($id === $user_id)
+      {
        return view('restaurants.manageOrder',compact('all_order_info'));
+      }
+      else 
+      {
+        return view('restaurants.noOrder');
+      }
               
 
     }
